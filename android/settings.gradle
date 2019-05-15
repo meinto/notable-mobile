@@ -1,0 +1,3 @@
+rootProject.name = 'NotableMobile'
+
+include ':app'
