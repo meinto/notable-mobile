@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { DirectoryProvider, DirectoryConsumer } from '../../directory/context'
-import { Directory } from '../../directory/directory'
+import { DirectoryProvider, DirectoryConsumer } from '../../filesystem/context'
+import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 
 type FolderSelectState = {
@@ -51,7 +51,7 @@ export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
   }
 
   fetchDirPaths = () => {
-    this.state.dir.dirList().then(paths => {
+    this.state.dir.dirPathsList().then(paths => {
       this.setState({ 
         rows: paths,
       })

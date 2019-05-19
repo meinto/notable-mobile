@@ -27,12 +27,26 @@ export class Directory {
       .join('/')
   }
 
-  dirList = (): Promise<string[]> => {
+  dirList = (): Promise<Directory[]> => {
+    return this.dirPathsList()
+      .then(paths => paths.map(path => new Directory(path)))
+  }
+
+  dirPathsList = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result
           .filter(r => r.isDirectory())
-          .map(folder => folder.path)
+          .map(folder => folder.path) 
+      })
+  }
+
+  filePathsList = (): Promise<string[]> => {
+    return fs.readDir(this.path)
+      .then((result) => {
+        return result
+          .filter(r => !r.isDirectory())
+          .map(file => file.path)
       })
   }
 }
