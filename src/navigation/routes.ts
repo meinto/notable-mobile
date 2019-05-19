@@ -1,8 +1,8 @@
 import { Navigation } from "react-native-navigation";
-import App from '../views/App';
+import { Listing } from '../views/listing/Listing';
 import { Overlay } from '../views/folderSelect/Overlay'
 
-Navigation.registerComponent(`Start`, () => App);
+Navigation.registerComponent(`Start`, () => Listing);
 Navigation.registerComponent('folderSelect', () => Overlay)
 
 Navigation.events().registerAppLaunchedListener(() => {
@@ -18,7 +18,7 @@ Navigation.events().registerAppLaunchedListener(() => {
         ]
       }
     }
-  });
+  }); 
 
   Navigation.showOverlay({
     component: {
