@@ -1,16 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { DirectoryProvider, DirectoryConsumer } from '../../directory/context'
-import { 
-  rootDirPath, 
-  fetchDirPaths, 
-  mkdir,
-  parentPath,
-} from '../../directory/operations'
+import { Directory } from '../../directory/directory'
 import { dismissOverlay } from '../../navigation/actions'
 
 type FolderSelectState = {
-  readonly rootPath: string,
+  readonly dir: Directory,
   readonly rows: Array<string>,
 }
 
@@ -26,36 +21,37 @@ export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
     super(props)
 
     this.state = {
-      rootPath: rootDirPath(),
+      dir: new Directory(Directory.rootDirPath()),
       rows: []
     }
   }
 
   componentDidMount() {
-    this.fetchDirPaths(this.state.rootPath)
+    this.fetchDirPaths()
   }
 
   navigate = (path: string) => {
     this.setState({
-      rootPath: path,
+      dir: new Directory(path),
       rows: []
+    }, () => {
+      this.fetchDirPaths()
     })
-    this.fetchDirPaths(path)
   }
 
   navigateUp = () => {
-    const path = parentPath(this.state.rootPath)
+    const path = this.state.dir.parentPath()
     this.navigate(path)
   }
 
   createFolder = (folderName: string) => {
-    const currentDir = this.state.rootPath
-    mkdir(currentDir + '/test')
-    this.fetchDirPaths(this.state.rootPath)
+    const currentDir = this.state.dir.getPath()
+    Directory.mkdir(currentDir + '/test')
+    this.fetchDirPaths()
   }
 
-  fetchDirPaths = (path: string) => {
-    fetchDirPaths(path).then(paths => {
+  fetchDirPaths = () => {
+    this.state.dir.dirList().then(paths => {
       this.setState({ 
         rows: paths,
       })
@@ -63,17 +59,17 @@ export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
   }
 
   getFolderName = (path: string) => {
-    return path.replace(this.state.rootPath, '')
+    return path.replace(this.state.dir.getPath(), '')
   }
 
   render() {
     return (
       <DirectoryProvider>
-        {rootDirPath() != this.state.rootPath && (
+        {Directory.rootDirPath() != this.state.dir.getPath() && (
           <TouchableRow key={'navigate-up'} onPress={this.navigateUp}>
             <Text>Zurück</Text>
           </TouchableRow>
-        )}
+        )} 
 
         {this.state.rows.map((path: string) => (
           <TouchableRow
@@ -91,7 +87,7 @@ export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
         <DirectoryConsumer>
           {({ setDir }) => (
             <TouchableRow key={'create-folder'} onPress={() => {
-              setDir(this.state.rootPath)
+              setDir(this.state.dir.getPath())
               dismissOverlay('folderSelect')
             }}>
               <Text>Auswählen</Text>
