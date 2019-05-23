@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.4.0",
+    "@types/styled-components": "^4.1.15",
     "react": "16.8.3",
     "react-native": "0.59.8",
     "react-native-fs": "^2.13.3",

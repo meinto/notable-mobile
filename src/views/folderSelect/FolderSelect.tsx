@@ -9,15 +9,15 @@ type FolderSelectState = {
   readonly rows: Array<string>,
 }
 
-const TouchableRow = styled.TouchableHighlight.attrs()`
-  padding: 10px;
+const TouchableRow = styled.TouchableHighlight`
+  padding: 10px; 
 `
-
+ 
 const Text = styled.Text``
+ 
+export class FolderSelect extends React.PureComponent<Object, FolderSelectState> {
 
-export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
-
-  constructor(props: object) {
+  constructor(props: Object) {
     super(props)
 
     this.state = {
@@ -44,14 +44,14 @@ export class FolderSelect extends React.PureComponent<{}, FolderSelectState> {
     this.navigate(path)
   }
 
-  createFolder = (folderName: string) => {
+  createFolder = () => {
     const currentDir = this.state.dir.getPath()
     Directory.mkdir(currentDir + '/test')
     this.fetchDirPaths()
   }
 
   fetchDirPaths = () => {
-    this.state.dir.dirPathsList().then(paths => {
+    this.state.dir.dirListPaths().then(paths => {
       this.setState({ 
         rows: paths,
       })

@@ -2,7 +2,7 @@ import { Navigation } from "react-native-navigation";
 import { Listing } from '../views/listing/Listing';
 import { Overlay } from '../views/folderSelect/Overlay'
 
-Navigation.registerComponent(`Start`, () => Listing);
+Navigation.registerComponent('Listing', () => Listing);
 Navigation.registerComponent('folderSelect', () => Overlay)
 
 Navigation.events().registerAppLaunchedListener(() => {
@@ -12,8 +12,15 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: "Start"
-            }
+              name: "Listing",
+              options: {
+                topBar: {
+                  title: {
+                    text: 'Notizen'
+                  },
+                }
+              },
+            },
           }
         ]
       }

@@ -28,11 +28,11 @@ export class Directory {
   }
 
   dirList = (): Promise<Directory[]> => {
-    return this.dirPathsList()
+    return this.dirListPaths()
       .then(paths => paths.map(path => new Directory(path)))
   }
 
-  dirPathsList = (): Promise<string[]> => {
+  dirListPaths = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result
@@ -41,7 +41,7 @@ export class Directory {
       })
   }
 
-  filePathsList = (): Promise<string[]> => {
+  fileListPaths = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result
