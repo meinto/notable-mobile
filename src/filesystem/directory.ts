@@ -37,7 +37,7 @@ export class Directory {
       .then((result) => {
         return result
           .filter(r => r.isDirectory())
-          .map(folder => folder.path) 
+          .map(folder => folder.path)
       })
   }
 

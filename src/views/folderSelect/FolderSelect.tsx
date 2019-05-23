@@ -6,15 +6,15 @@ import { dismissOverlay } from '../../navigation/actions'
 
 type FolderSelectState = {
   readonly dir: Directory,
-  readonly rows: Array<string>,
+  readonly rows: string[],
 }
 
 const TouchableRow = styled.TouchableHighlight`
-  padding: 10px; 
+  padding: 10px;
 `
- 
+
 const Text = styled.Text``
- 
+
 export class FolderSelect extends React.PureComponent<Object, FolderSelectState> {
 
   constructor(props: Object) {
@@ -22,7 +22,7 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
 
     this.state = {
       dir: new Directory(Directory.rootDirPath()),
-      rows: []
+      rows: [],
     }
   }
 
@@ -33,8 +33,8 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
   navigate = (path: string) => {
     this.setState({
       dir: new Directory(path),
-      rows: []
-    }, () => {
+      rows: [],
+    },            () => {
       this.fetchDirPaths()
     })
   }
@@ -46,13 +46,13 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
 
   createFolder = () => {
     const currentDir = this.state.dir.getPath()
-    Directory.mkdir(currentDir + '/test')
+    Directory.mkdir(`${currentDir}/test`)
     this.fetchDirPaths()
   }
 
   fetchDirPaths = () => {
-    this.state.dir.dirListPaths().then(paths => {
-      this.setState({ 
+    this.state.dir.dirListPaths().then((paths) => {
+      this.setState({
         rows: paths,
       })
     })
@@ -65,11 +65,11 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
   render() {
     return (
       <DirectoryProvider>
-        {Directory.rootDirPath() != this.state.dir.getPath() && (
+        {Directory.rootDirPath() !== this.state.dir.getPath() && (
           <TouchableRow key={'navigate-up'} onPress={this.navigateUp}>
             <Text>Zurück</Text>
           </TouchableRow>
-        )} 
+        )}
 
         {this.state.rows.map((path: string) => (
           <TouchableRow
@@ -83,7 +83,7 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
         <TouchableRow key={'create-folder'} onPress={this.createFolder}>
           <Text>Anlegen</Text>
         </TouchableRow>
-        
+
         <DirectoryConsumer>
           {({ setDir }) => (
             <TouchableRow key={'create-folder'} onPress={() => {

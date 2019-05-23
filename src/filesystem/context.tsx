@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 
 export const DirectoryContext = React.createContext({
   dir: '',
   setDir: (dir: string) => {},
-});
+})
 
 export class DirectoryProvider extends PureComponent {
   state = {
     dir: '',
     setDir: (dir: string) => {
-      this.setState({dir})
-    }
+      this.setState({ dir })
+    },
   }
 
   render() {
