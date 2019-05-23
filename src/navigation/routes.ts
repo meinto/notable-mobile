@@ -1,3 +1,4 @@
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Navigation } from 'react-native-navigation'
 import { Listing } from '../views/listing/Listing'
 import { Overlay } from '../views/folderSelect/Overlay'
@@ -5,7 +6,9 @@ import { Overlay } from '../views/folderSelect/Overlay'
 Navigation.registerComponent('Listing', () => Listing)
 Navigation.registerComponent('folderSelect', () => Overlay)
 
-Navigation.events().registerAppLaunchedListener(() => {
+Navigation.events().registerAppLaunchedListener(async () => {
+  const addIcon = await Icon.getImageSource('add', 30, 'black')
+
   Navigation.setRoot({
     root: {
       stack: {
@@ -18,6 +21,12 @@ Navigation.events().registerAppLaunchedListener(() => {
                   title: {
                     text: 'Notizen',
                   },
+                  rightButtons: [
+                    {
+                      id: 'buttonOne',
+                      icon: addIcon,
+                    },
+                  ],
                 },
               },
             },
