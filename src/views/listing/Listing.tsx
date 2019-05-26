@@ -19,6 +19,10 @@ export class Listing extends PureComponent<ListingProps> {
       topBar: {
         title: {
           text: 'Notizen',
+          color: '#efefef',
+        },
+        background: {
+          color: '#333',
         },
       },
     }
@@ -26,7 +30,7 @@ export class Listing extends PureComponent<ListingProps> {
 
   constructor(props: ListingProps) {
     super(props)
-    Icon.getImageSource('add', 30, 'black').then((icon) => {
+    Icon.getImageSource('add', 30, '#efefef').then((icon) => {
       Navigation.mergeOptions(this.props.componentId, {
         topBar: {
           rightButtons: [
@@ -37,10 +41,9 @@ export class Listing extends PureComponent<ListingProps> {
           ],
         },
       })
-      Navigation.events().bindComponent(this)
     })
 
-    Icon.getImageSource('menu', 30, 'black').then((icon) => {
+    Icon.getImageSource('menu', 30, '#efefef').then((icon) => {
       Navigation.mergeOptions(this.props.componentId, {
         topBar: {
           leftButtons: [
@@ -51,11 +54,13 @@ export class Listing extends PureComponent<ListingProps> {
           ],
         },
       })
-      Navigation.events().bindComponent(this)
     })
+
+    Navigation.events().bindComponent(this)
   }
 
   navigationButtonPressed({ buttonId }: { buttonId: string }) {
+    console.warn(buttonId)
     switch (buttonId) {
       case 'add-note':
         push(this.props.componentId, 'note')
