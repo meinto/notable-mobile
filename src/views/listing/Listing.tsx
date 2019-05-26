@@ -81,7 +81,7 @@ export class Listing extends PureComponent<ListingProps> {
             }
 
             if (initialized && dir.getPath() !== '') {
-              return <Loading>{JSON.stringify(dir.fileListPaths())}</Loading>
+              return <Loading>{JSON.stringify(dir.getFileListPaths())}</Loading>
             }
 
             return <Loading>Loading</Loading>

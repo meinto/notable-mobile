@@ -20,19 +20,19 @@ export class Directory {
     return this.path
   }
 
-  parentPath = (): string => {
+  getParentPath = (): string => {
     return this.path
       .split('/')
       .slice(0, -1)
       .join('/')
   }
 
-  dirList = (): Promise<Directory[]> => {
-    return this.dirListPaths()
+  getDirList = (): Promise<Directory[]> => {
+    return this.getDirListPaths()
       .then(paths => paths.map(path => new Directory(path)))
   }
 
-  dirListPaths = (): Promise<string[]> => {
+  getDirListPaths = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result
@@ -41,7 +41,7 @@ export class Directory {
       })
   }
 
-  fileListPaths = (): Promise<string[]> => {
+  getFileListPaths = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result

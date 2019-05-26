@@ -45,7 +45,7 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   }
 
   navigateUp = () => {
-    const path = this.state.dir.parentPath()
+    const path = this.state.dir.getParentPath()
     this.navigate(path)
   }
 
@@ -56,7 +56,7 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   }
 
   fetchDirPaths = () => {
-    this.state.dir.dirListPaths().then((paths) => {
+    this.state.dir.getDirListPaths().then((paths) => {
       this.setState({
         rows: paths,
       })
