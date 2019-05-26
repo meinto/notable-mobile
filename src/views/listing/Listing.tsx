@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
-import { push, showOverlay } from '../../navigation/actions'
+import { push, showOverlay, openDrawer } from '../../navigation/actions'
 import { DirectoryConsumer } from '../../filesystem/context'
 
 const Loading = styled.Text``
@@ -39,10 +39,31 @@ export class Listing extends PureComponent<ListingProps> {
       })
       Navigation.events().bindComponent(this)
     })
+
+    Icon.getImageSource('menu', 30, 'black').then((icon) => {
+      Navigation.mergeOptions(this.props.componentId, {
+        topBar: {
+          leftButtons: [
+            {
+              icon,
+              id: 'menu',
+            },
+          ],
+        },
+      })
+      Navigation.events().bindComponent(this)
+    })
   }
 
-  navigationButtonPressed() {
-    push(this.props.componentId, 'note')
+  navigationButtonPressed({ buttonId }: { buttonId: string }) {
+    switch (buttonId) {
+      case 'add-note':
+        push(this.props.componentId, 'note')
+        break
+      case 'menu':
+        openDrawer(this.props.componentId)
+        break
+    }
   }
 
   render() {

@@ -23,6 +23,16 @@ export const showOverlay = (componentName: string) => {
   })
 }
 
+export const openDrawer = (componentID: string) => {
+  Navigation.mergeOptions(componentID, {
+    sideMenu: {
+      left: {
+        visible: true,
+      },
+    },
+  })
+}
+
 export const closeDrawer = (componentID: string) => {
   Navigation.mergeOptions(componentID, {
     sideMenu: {
