@@ -7,13 +7,11 @@ export class Root extends React.PureComponent {
 
   render() {
     return (
-      <DirectoryProvider>
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-          <PageWrapper>
-            {this.props.children}
-          </PageWrapper>
-        </SafeAreaView>
-      </DirectoryProvider>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+        <PageWrapper>
+          {this.props.children}
+        </PageWrapper>
+      </SafeAreaView>
     )
   }
 }

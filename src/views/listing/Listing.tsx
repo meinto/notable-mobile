@@ -1,69 +1,39 @@
 import React, { PureComponent } from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
 import { push, showOverlay, openDrawer } from '../../navigation/actions'
-import { DirectoryConsumer } from '../../filesystem/context'
+import { File } from '../../filesystem/file'
+import { Directory } from '../../filesystem/directory'
 
 const Loading = styled.Text``
 
 type ListingProps = {
   componentId: string,
+  dir: Directory,
+  fileList: File[],
+  initialized: boolean,
 }
 
 export class Listing extends PureComponent<ListingProps> {
 
-  static options() {
-    return {
-      topBar: {
-        title: {
-          text: 'Notizen',
-          color: '#efefef',
-        },
-        background: {
-          color: '#333',
-        },
-      },
-    }
-  }
-
   constructor(props: ListingProps) {
     super(props)
-    Icon.getImageSource('add', 30, '#efefef').then((icon) => {
-      Navigation.mergeOptions(this.props.componentId, {
-        topBar: {
-          rightButtons: [
-            {
-              icon,
-              id: 'add-note',
-            },
-          ],
-        },
-      })
-    })
 
-    Icon.getImageSource('menu', 30, '#efefef').then((icon) => {
-      Navigation.mergeOptions(this.props.componentId, {
-        topBar: {
-          leftButtons: [
-            {
-              icon,
-              id: 'menu',
-            },
-          ],
-        },
-      })
-    })
+    const { dir, initialized } = this.props
+    if (initialized && dir.getPath() === '') {
+      showOverlay('folderSelect')
+    }
 
     Navigation.events().bindComponent(this)
   }
 
   navigationButtonPressed({ buttonId }: { buttonId: string }) {
-    console.warn(buttonId)
+    const { dir } = this.props
     switch (buttonId) {
       case 'add-note':
         push(this.props.componentId, 'note')
+        File.create(`${dir.getPath()}/test.md`)
         break
       case 'menu':
         openDrawer(this.props.componentId)
@@ -71,22 +41,24 @@ export class Listing extends PureComponent<ListingProps> {
     }
   }
 
+  renderFileList = () => {
+    const { dir, fileList, initialized } = this.props
+
+    console.log({ dir, fileList, initialized })
+
+    if (initialized && dir.getPath() !== '') {
+      return fileList.map((file) => {
+        return <Loading>{file.getPath()}</Loading>
+      })
+    }
+
+    return <Loading>Loading</Loading>
+  }
+
   render() {
     return (
       <Root>
-        <DirectoryConsumer>
-          {({ dir, initialized }) => {
-            if (initialized &&  dir.getPath() === '') {
-              showOverlay('folderSelect')
-            }
-
-            if (initialized && dir.getPath() !== '') {
-              return <Loading>{JSON.stringify(dir.getFileListPaths())}</Loading>
-            }
-
-            return <Loading>Loading</Loading>
-          }}
-        </DirectoryConsumer>
+        {this.renderFileList()}
       </Root>
     )
   }

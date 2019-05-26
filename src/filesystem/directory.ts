@@ -1,4 +1,5 @@
 import fs from 'react-native-fs'
+import { File } from './file'
 
 export class Directory {
 
@@ -41,10 +42,19 @@ export class Directory {
       })
   }
 
+  getFileList = (): Promise<File[]> => {
+    return this.getFileListPaths()
+      .then(paths => paths.map(path => new File(path)))
+  }
+
   getFileListPaths = (): Promise<string[]> => {
     return fs.readDir(this.path)
       .then((result) => {
         return result
+          .map(file => {
+            console.warn(file.path)
+            return file
+          })
           .filter(r => !r.isDirectory())
           .map(file => file.path)
       })
