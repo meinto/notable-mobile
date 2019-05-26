@@ -29,10 +29,16 @@ export class DirectoryProvider extends PureComponent {
   componentDidMount() {
     AsyncStorage.getItem(DirectoryProvider.DB_DIR_KEY)
       .then((dir) => {
-        this.setState({
-          dir,
-          initialized: true,
-        })
+        if (dir !== null) {
+          this.setState({
+            dir,
+            initialized: true,
+          })
+        } else {
+          this.setState({
+            initialized: true,
+          })
+        }
       })
       .catch((e) => {
         this.setState({

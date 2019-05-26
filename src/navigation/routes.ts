@@ -11,15 +11,25 @@ Navigation.registerComponent('folderSelect', () => Overlay)
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({
     root: {
-      stack: {
-        children: [
-          {
-            component: {
-              id: 'listing',
-              name: 'listing',
-            },
+      sideMenu: {
+        left: {
+          component: {
+            id: 'listing',
+            name: 'listing',
           },
-        ],
+        },
+        center: {
+          stack: {
+            children: [
+              {
+                component: {
+                  id: 'listing',
+                  name: 'listing',
+                },
+              },
+            ],
+          },
+        },
       },
     },
   })
