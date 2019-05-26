@@ -1,12 +1,11 @@
 import { Navigation } from 'react-native-navigation'
 import { Listing } from '../views/listing/Listing'
-import { Overlay } from '../views/folderSelect/Overlay'
+import { FolderSelect } from '../views/folderSelect/FolderSelect'
 import { Note } from '../views/note/Note'
-import { showOverlay } from './actions'
 
+Navigation.registerComponent('folderSelect', () => FolderSelect)
 Navigation.registerComponent('listing', () => Listing)
 Navigation.registerComponent('note', () => Note)
-Navigation.registerComponent('folderSelect', () => Overlay)
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({
@@ -14,8 +13,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
       sideMenu: {
         left: {
           component: {
-            id: 'listing',
-            name: 'listing',
+            name: 'note',
           },
         },
         center: {
@@ -23,7 +21,6 @@ Navigation.events().registerAppLaunchedListener(async () => {
             children: [
               {
                 component: {
-                  id: 'listing',
                   name: 'listing',
                 },
               },

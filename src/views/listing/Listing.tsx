@@ -50,12 +50,12 @@ export class Listing extends PureComponent<ListingProps> {
       <Root>
         <DirectoryConsumer>
           {({ dir, initialized }) => {
-            if (initialized && dir !== '') {
-              return <Loading>{JSON.stringify(dir)}</Loading>
-            }
-
             if (initialized && dir === '') {
               showOverlay('folderSelect')
+            }
+
+            if (initialized && dir !== '') {
+              return <Loading>{JSON.stringify(dir)}</Loading>
             }
 
             return <Loading>{dir}</Loading>

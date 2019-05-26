@@ -5,20 +5,24 @@ import { DirectoryConsumer } from '../../filesystem/context'
 import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 
-type FolderSelectState = {
-  readonly dir: Directory,
-  readonly rows: string[],
-}
-
 const TouchableRow = styled.TouchableHighlight`
   padding: 10px;
 `
 
 const Text = styled.Text``
 
-export class FolderSelect extends React.PureComponent<Object, FolderSelectState> {
+type FolderSelectProps = {
+  componentId: string,
+}
 
-  constructor(props: Object) {
+type FolderSelectState = {
+  readonly dir: Directory,
+  readonly rows: string[],
+}
+
+export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderSelectState> {
+
+  constructor(props: FolderSelectProps) {
     super(props)
 
     this.state = {
@@ -89,7 +93,7 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
           {({ setDir }) => (
             <TouchableRow key={'create-folder'} onPress={() => {
               setDir(this.state.dir.getPath(), () => {
-                dismissOverlay('folderSelect')
+                dismissOverlay(this.props.componentId)
               })
             }}>
               <Text>Auswählen</Text>
