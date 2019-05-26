@@ -2,10 +2,12 @@ import { Navigation } from 'react-native-navigation'
 import { Listing } from '../views/listing/Listing'
 import { FolderSelect } from '../views/folderSelect/FolderSelect'
 import { Note } from '../views/note/Note'
+import { Drawer } from '../views/navigation/Drawer'
 
-Navigation.registerComponent('folderSelect', () => FolderSelect)
 Navigation.registerComponent('listing', () => Listing)
 Navigation.registerComponent('note', () => Note)
+Navigation.registerComponent('folderSelect', () => FolderSelect)
+Navigation.registerComponent('navigation.drawer', () => Drawer)
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({
@@ -13,7 +15,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
       sideMenu: {
         left: {
           component: {
-            name: 'note',
+            name: 'navigation.drawer',
           },
         },
         center: {
