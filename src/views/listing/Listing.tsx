@@ -2,7 +2,12 @@ import React, { PureComponent } from 'react'
 import styled from 'styled-components/native'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
-import { push, showOverlay, openDrawer } from '../../navigation/actions'
+import {
+  push,
+  showOverlay,
+  openDrawer,
+  setTopBarIcon,
+} from '../../navigation/actions'
 import { File } from '../../filesystem/file'
 import { Directory } from '../../filesystem/directory'
 
@@ -25,15 +30,34 @@ export class Listing extends PureComponent<ListingProps> {
       showOverlay('folderSelect')
     }
 
+    this.loadTopBarIcons()
+    this.navigationOptions()
     Navigation.events().bindComponent(this)
   }
 
+  navigationOptions = () => {
+    Navigation.mergeOptions(this.props.componentId, {
+      topBar: {
+        title: {
+          text: 'Notizen',
+          color: '#efefef',
+        },
+        background: {
+          color: '#333',
+        },
+      },
+    })
+  }
+
+  loadTopBarIcons = () => {
+    setTopBarIcon(this.props.componentId, 'right', 'add-note', 'add', 30, '#efefef')
+    setTopBarIcon(this.props.componentId, 'left', 'menu', 'menu', 30, '#efefef')
+  }
+
   navigationButtonPressed({ buttonId }: { buttonId: string }) {
-    const { dir } = this.props
     switch (buttonId) {
       case 'add-note':
         push(this.props.componentId, 'note')
-        File.create(`${dir.getPath()}/test.md`)
         break
       case 'menu':
         openDrawer(this.props.componentId)

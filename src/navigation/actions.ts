@@ -1,3 +1,4 @@
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Navigation } from 'react-native-navigation'
 
 export const dismissOverlay = (componentID: string) => {
@@ -18,6 +19,28 @@ export const showOverlay = (componentName: string) => {
     component: {
       name: componentName,
     },
+  })
+}
+
+export const setTopBarIcon = (
+  componentID: string,
+  buttonLocation: 'left' | 'right',
+  buttonID: string,
+  iconName: string,
+  iconSize: number,
+  iconColor: string,
+) => {
+  Icon.getImageSource(iconName, iconSize, iconColor).then((icon) => {
+    Navigation.mergeOptions(componentID, {
+      topBar: {
+        [`${buttonLocation}Buttons`]: [
+          {
+            icon,
+            id: buttonID,
+          },
+        ],
+      },
+    })
   })
 }
 
