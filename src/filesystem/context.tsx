@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
+import { Directory } from './directory'
 
 export const DirectoryContext = React.createContext({
-  dir: '',
+  dir: new Directory(''),
+  dirPath: '',
   initialized: false,
   setDir: (dir: string, success: Function) => {},
 })
@@ -12,12 +14,16 @@ export class DirectoryProvider extends PureComponent {
   static DB_DIR_KEY: string = '@notable_dir'
 
   state = {
-    dir: '',
+    dir: new Directory(''),
+    dirPath: '',
     initialized: false,
-    setDir: (dir: string, success: Function) => {
-      AsyncStorage.setItem(DirectoryProvider.DB_DIR_KEY, dir)
+    setDir: (dirPath: string, success: Function) => {
+      AsyncStorage.setItem(DirectoryProvider.DB_DIR_KEY, dirPath)
         .then(() => {
-          this.setState({ dir })
+          this.setState({
+            dirPath,
+            dir: new Directory(dirPath),
+          })
           success()
         })
         .catch((e) => {
@@ -28,10 +34,11 @@ export class DirectoryProvider extends PureComponent {
 
   componentDidMount() {
     AsyncStorage.getItem(DirectoryProvider.DB_DIR_KEY)
-      .then((dir) => {
-        if (dir !== null) {
+      .then((dirPath) => {
+        if (dirPath !== null) {
           this.setState({
-            dir,
+            dirPath,
+            dir: new Directory(dirPath),
             initialized: true,
           })
         } else {
