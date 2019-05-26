@@ -2,6 +2,7 @@ import { Navigation } from 'react-native-navigation'
 import { Listing } from '../views/listing/Listing'
 import { Overlay } from '../views/folderSelect/Overlay'
 import { Note } from '../views/note/Note'
+import { showOverlay } from './actions'
 
 Navigation.registerComponent('listing', () => Listing)
 Navigation.registerComponent('note', () => Note)
@@ -19,18 +20,6 @@ Navigation.events().registerAppLaunchedListener(async () => {
             },
           },
         ],
-      },
-    },
-  })
-
-  Navigation.showOverlay({
-    component: {
-      id: 'folderSelect',
-      name: 'folderSelect',
-      options: {
-        overlay: {
-          interceptTouchOutside: true,
-        },
       },
     },
   })

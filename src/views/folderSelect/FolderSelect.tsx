@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { DirectoryProvider, DirectoryConsumer } from '../../filesystem/context'
+import { Root } from '../Root'
+import { DirectoryConsumer } from '../../filesystem/context'
 import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 
@@ -64,7 +65,7 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
 
   render() {
     return (
-      <DirectoryProvider>
+      <Root>
         {Directory.rootDirPath() !== this.state.dir.getPath() && (
           <TouchableRow key={'navigate-up'} onPress={this.navigateUp}>
             <Text>Zurück</Text>
@@ -87,14 +88,15 @@ export class FolderSelect extends React.PureComponent<Object, FolderSelectState>
         <DirectoryConsumer>
           {({ setDir }) => (
             <TouchableRow key={'create-folder'} onPress={() => {
-              setDir(this.state.dir.getPath())
-              dismissOverlay('folderSelect')
+              setDir(this.state.dir.getPath(), () => {
+                dismissOverlay('folderSelect')
+              })
             }}>
               <Text>Auswählen</Text>
             </TouchableRow>
           )}
         </DirectoryConsumer>
-      </DirectoryProvider>
+      </Root>
     )
   }
 }

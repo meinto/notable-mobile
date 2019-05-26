@@ -12,3 +12,17 @@ export const push = (componentID: string, nextComponentID: string) => {
     },
   })
 }
+
+export const showOverlay = (componentID: string) => {
+  Navigation.showOverlay({
+    component: {
+      id: componentID,
+      name: componentID,
+      options: {
+        overlay: {
+          interceptTouchOutside: true,
+        },
+      },
+    },
+  })
+}

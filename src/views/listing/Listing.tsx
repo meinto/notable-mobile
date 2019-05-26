@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import styled from 'styled-components/native'
 import { Navigation } from 'react-native-navigation'
-import { SafeAreaView } from 'react-native'
-import { PageWrapper } from '../../components/PageWrapper'
-import { push } from '../../navigation/actions'
+import { Root } from '../Root'
+import { push, showOverlay } from '../../navigation/actions'
+import { DirectoryConsumer } from '../../filesystem/context'
+
+const Loading = styled.Text``
 
 type ListingProps = {
   componentId: string,
@@ -44,10 +47,22 @@ export class Listing extends PureComponent<ListingProps> {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <PageWrapper>
-        </PageWrapper>
-      </SafeAreaView>
+      <Root>
+        <DirectoryConsumer>
+          {({ dir, initialized }) => {
+            if (initialized && dir !== '') {
+              return <Loading>{dir}</Loading>
+            }
+
+            if (initialized && dir === '') {
+              showOverlay('folderSelect')
+              return <Loading>Loading</Loading>
+            }
+
+            return null
+          }}
+        </DirectoryConsumer>
+      </Root>
     )
   }
 }
