@@ -73,7 +73,7 @@ export class Listing extends React.Component<ListingProps> {
 
     if (initialized && dir.getPath() !== '') {
       return fileList.map((file) => {
-        return <Loading key={file}>{file.getPath()}</Loading>
+        return <Loading key={file.getPath()}>{file.getPath()}</Loading>
       })
     }
 

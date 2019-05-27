@@ -3,22 +3,14 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { Directory } from './directory'
 import { File } from './file'
 
-type DirectoryContextDefault = {
-  dir: Directory,
-  dirPath: string,
-  fileList: File[],
-  initialized: boolean,
-  setDir: (dir: string, success: Function) => void,
-}
-
 class DirectoryContext {
 
   static DB_DIR_KEY: string = '@notable_dir'
 
-  @observable dir = new Directory('')
-  @observable dirPath = ''
-  @observable fileList = []
-  @observable initialized = false
+  @observable dir: Directory = new Directory('')
+  @observable dirPath: string = ''
+  @observable fileList: File[] = []
+  @observable initialized: boolean = false
 
   constructor() {
     AsyncStorage.getItem(DirectoryContext.DB_DIR_KEY)
