@@ -1,13 +1,24 @@
+import React from 'react'
 import { Navigation } from 'react-native-navigation'
-import { ListingContainer } from '../views/listing/ListingContainer'
+import { Listing } from '../views/listing/Listing'
 import { FolderSelect } from '../views/folderSelect/FolderSelect'
 import { Note } from '../views/note/Note'
 import { Drawer } from '../views/navigation/Drawer'
+import { directoryContext } from '../filesystem/context'
 
-Navigation.registerComponent('listing', () => ListingContainer)
-Navigation.registerComponent('note', () => Note)
-Navigation.registerComponent('folderSelect', () => FolderSelect)
-Navigation.registerComponent('navigation.drawer', () => Drawer)
+const registerComponentWithStores = (componentID: string, Component: any) => {
+  Navigation.registerComponent(componentID, () => (props: Object) => (
+    <Component
+      { ...props }
+      directoryContext={directoryContext}
+    />
+  ),                           () => Component)
+}
+
+registerComponentWithStores('listing', Listing)
+registerComponentWithStores('note', Note)
+registerComponentWithStores('folderSelect', FolderSelect)
+registerComponentWithStores('navigation.drawer', Drawer)
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot({

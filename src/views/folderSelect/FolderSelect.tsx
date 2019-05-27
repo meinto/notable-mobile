@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { Root } from '../Root'
-import { DirectoryConsumer } from '../../filesystem/context'
 import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 
@@ -13,6 +12,9 @@ const Text = styled.Text``
 
 type FolderSelectProps = {
   componentId: string,
+  directoryContext: {
+    setDir: Function,
+  },
 }
 
 type FolderSelectState = {
@@ -89,17 +91,13 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
           <Text>Anlegen</Text>
         </TouchableRow>
 
-        <DirectoryConsumer>
-          {({ setDir }) => (
-            <TouchableRow key={'create-folder'} onPress={() => {
-              setDir(this.state.dir.getPath(), () => {
-                dismissOverlay(this.props.componentId)
-              })
-            }}>
-              <Text>Auswählen</Text>
-            </TouchableRow>
-          )}
-        </DirectoryConsumer>
+        <TouchableRow key={'select-folder'} onPress={() => {
+          this.props.directoryContext.setDir(this.state.dir.getPath(), () => {
+            dismissOverlay(this.props.componentId)
+          })
+        }}>
+          <Text>Auswählen</Text>
+        </TouchableRow>
       </Root>
     )
   }

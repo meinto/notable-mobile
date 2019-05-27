@@ -51,10 +51,6 @@ export class Directory {
     return fs.readDir(this.path)
       .then((result) => {
         return result
-          .map(file => {
-            console.warn(file.path)
-            return file
-          })
           .filter(r => !r.isDirectory())
           .map(file => file.path)
       })

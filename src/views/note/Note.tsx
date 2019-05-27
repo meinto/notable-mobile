@@ -4,6 +4,8 @@ import Markdown from 'react-native-simple-markdown'
 
 export class Note extends React.PureComponent {
 
+  
+
   render() {
     return (
       <Markdown>

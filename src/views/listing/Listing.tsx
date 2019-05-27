@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components/native'
+import { observer, inject } from 'mobx-react'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
 import {
@@ -15,28 +16,18 @@ const Loading = styled.Text``
 
 type ListingProps = {
   componentId: string,
-  dir: Directory,
-  fileList: File[],
-  initialized: boolean,
+  directoryContext: {
+    dir: Directory,
+    fileList: File[],
+    initialized: boolean,
+  },
 }
 
-export class Listing extends PureComponent<ListingProps> {
+@observer
+export class Listing extends React.Component<ListingProps> {
 
-  constructor(props: ListingProps) {
-    super(props)
-
-    const { dir, initialized } = this.props
-    if (initialized && dir.getPath() === '') {
-      showOverlay('folderSelect')
-    }
-
-    this.loadTopBarIcons()
-    this.navigationOptions()
-    Navigation.events().bindComponent(this)
-  }
-
-  navigationOptions = () => {
-    Navigation.mergeOptions(this.props.componentId, {
+  static options() {
+    return {
       topBar: {
         title: {
           text: 'Notizen',
@@ -46,7 +37,19 @@ export class Listing extends PureComponent<ListingProps> {
           color: '#333',
         },
       },
-    })
+    }
+  }
+
+  constructor(props: ListingProps) {
+    super(props)
+
+    const { dir, initialized } = this.props.directoryContext
+    if (initialized && dir.getPath() === '') {
+      showOverlay('folderSelect')
+    }
+
+    this.loadTopBarIcons()
+    Navigation.events().bindComponent(this)
   }
 
   loadTopBarIcons = () => {
@@ -66,13 +69,11 @@ export class Listing extends PureComponent<ListingProps> {
   }
 
   renderFileList = () => {
-    const { dir, fileList, initialized } = this.props
-
-    console.log({ dir, fileList, initialized })
+    const { dir, fileList, initialized } = this.props.directoryContext
 
     if (initialized && dir.getPath() !== '') {
       return fileList.map((file) => {
-        return <Loading>{file.getPath()}</Loading>
+        return <Loading key={file}>{file.getPath()}</Loading>
       })
     }
 
