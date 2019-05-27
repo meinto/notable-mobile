@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import styled from 'styled-components/native'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
 import {
