@@ -15,10 +15,16 @@ export const push = (componentID: string, nextComponentID: string, props?: Objec
   })
 }
 
-export const showOverlay = (componentName: string) => {
+export const showOverlay = (componentName: string, props?: Object) => {
   Navigation.showOverlay({
     component: {
       name: componentName,
+      passProps: props ? props : {},
+      options: {
+        overlay: {
+          interceptTouchOutside: true,
+        },
+      },
     },
   })
 }

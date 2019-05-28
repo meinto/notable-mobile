@@ -4,7 +4,6 @@ import { File } from '../../filesystem/file'
 import { Navigation } from 'react-native-navigation'
 import { setTopBarIcon } from '../../navigation/actions'
 import Markdown from 'react-native-simple-markdown'
-import { string } from 'prop-types'
 
 type NoteProps = {
   filePath: string,

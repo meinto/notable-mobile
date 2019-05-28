@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navigation } from 'react-native-navigation'
 import { Listing } from '../views/listing/Listing'
+import { CreateFileOverlay } from '../views/listing/CreateFileOverlay'
 import { FolderSelect } from '../views/folderSelect/FolderSelect'
 import { Note } from '../views/note/Note'
 import { Drawer } from '../views/navigation/Drawer'
@@ -16,6 +17,7 @@ const registerComponentWithStores = (componentID: string, Component: any) => {
 }
 
 registerComponentWithStores('listing', Listing)
+registerComponentWithStores('listing.createFileOverlay', CreateFileOverlay)
 registerComponentWithStores('note', Note)
 registerComponentWithStores('folderSelect', FolderSelect)
 registerComponentWithStores('navigation.drawer', Drawer)

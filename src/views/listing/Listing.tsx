@@ -62,7 +62,11 @@ export class Listing extends React.Component<ListingProps> {
   navigationButtonPressed({ buttonId }: { buttonId: string }) {
     switch (buttonId) {
       case 'add-note':
-        push(this.props.componentId, 'note')
+        const { dir } = this.props.directoryContext
+        showOverlay('listing.createFileOverlay', {
+          dirPath: dir.getPath(),
+          parentComponentId: this.props.componentId,
+        })
         break
       case 'menu':
         openDrawer(this.props.componentId)
