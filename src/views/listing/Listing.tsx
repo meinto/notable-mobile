@@ -14,6 +14,8 @@ import { Directory } from '../../filesystem/directory'
 
 const Loading = styled.Text``
 
+const Touchable = styled.TouchableHighlight``
+
 type ListingProps = {
   componentId: string,
   directoryContext: {
@@ -73,7 +75,16 @@ export class Listing extends React.Component<ListingProps> {
 
     if (initialized && dir.getPath() !== '') {
       return fileList.map((file) => {
-        return <Loading key={file.getPath()}>{file.getPath()}</Loading>
+        return (
+          <Touchable
+            key={file.getPath()}
+            onPress={() => {
+              push(this.props.componentId, 'note', {
+                filePath: file.getPath(),
+              })
+            }}
+          ><Loading>{file.getName()}</Loading></Touchable>
+        )
       })
     }
 

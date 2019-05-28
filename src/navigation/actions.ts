@@ -5,11 +5,12 @@ export const dismissOverlay = (componentID: string) => {
   Navigation.dismissOverlay(componentID)
 }
 
-export const push = (componentID: string, nextComponentID: string) => {
+export const push = (componentID: string, nextComponentID: string, props?: Object) => {
   Navigation.push(componentID, {
     component: {
       id: nextComponentID,
       name: nextComponentID,
+      passProps: props ? props : {},
     },
   })
 }
