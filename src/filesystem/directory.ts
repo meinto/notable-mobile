@@ -1,10 +1,14 @@
+import { Platform } from 'react-native'
 import fs from 'react-native-fs'
 import { File } from './file'
 
 export class Directory {
 
   static rootDirPath = (): string => {
-    return fs.DocumentDirectoryPath
+    if (Platform.OS === 'ios') {
+      return fs.DocumentDirectoryPath
+    }
+    return fs.ExternalStorageDirectoryPath
   }
 
   static mkdir = (path: string): void => {
