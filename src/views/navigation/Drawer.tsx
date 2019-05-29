@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components/native'
 import { Root } from '../Root'
 import { showOverlay, closeDrawer } from '../../navigation/actions'
+import { TouchableListRow } from '../../components/List'
 
 const Container = styled.View`
   background-color: white;
   flex: 1;
 `
 
-const BtnText = styled.Text``
+const Text = styled.Text``
 
 const FolderSelectBtn = styled.TouchableHighlight``
 
@@ -21,14 +22,14 @@ export class Drawer extends React.PureComponent<DrawerProps> {
     return (
       <Root>
         <Container>
-          <FolderSelectBtn
+          <TouchableListRow
             onPress={() => {
               showOverlay('folderSelect')
               closeDrawer(this.props.componentId)
             }}
           >
-            <BtnText>open folder select</BtnText>
-          </FolderSelectBtn>
+            <Text>Notable Ordner auswählen</Text>
+          </TouchableListRow>
         </Container>
       </Root>
     )

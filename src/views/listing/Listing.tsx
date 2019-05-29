@@ -11,10 +11,9 @@ import {
 } from '../../navigation/actions'
 import { File } from '../../filesystem/file'
 import { Directory } from '../../filesystem/directory'
+import { List, TouchableListRow } from '../../components/List'
 
-const Loading = styled.Text``
-
-const Touchable = styled.TouchableHighlight``
+const Text = styled.Text``
 
 type ListingProps = {
   componentId: string,
@@ -78,21 +77,25 @@ export class Listing extends React.Component<ListingProps> {
     const { dir, fileList, initialized } = this.props.directoryContext
 
     if (initialized && dir.getPath() !== '') {
-      return fileList.map((file) => {
-        return (
-          <Touchable
-            key={file.getPath()}
-            onPress={() => {
-              push(this.props.componentId, 'note', {
-                filePath: file.getPath(),
-              })
-            }}
-          ><Loading>{file.getName()}</Loading></Touchable>
-        )
-      })
+      return (
+        <List>
+          {fileList.map((file) => {
+            return (
+            <TouchableListRow
+              key={file.getPath()}
+              onPress={() => {
+                push(this.props.componentId, 'note', {
+                  filePath: file.getPath(),
+                })
+              }}
+            ><Text>{file.getName()}</Text></TouchableListRow>
+            )
+          })}
+        </List>
+      )
     }
 
-    return <Loading>Loading</Loading>
+    return <Text>Loading</Text>
   }
 
   render() {

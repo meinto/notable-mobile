@@ -25,6 +25,10 @@ export class Directory {
     return this.path
   }
 
+  getShortPath = (): string => {
+    return this.path.replace(Directory.rootDirPath(), '')
+  }
+
   getParentPath = (): string => {
     return this.path
       .split('/')

@@ -3,11 +3,19 @@ import styled from 'styled-components/native'
 import { Root } from '../Root'
 import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
+import { List, TouchableListRow } from '../../components/List'
+import { GhostTextButton } from '../../components/Button'
 
-const TouchableRow = styled.TouchableHighlight`
-  padding: 10px;
+const TopNavigationContainer = styled.View`
+  padding: 20px;
+  border-bottom-width: 1px;
+  border-color: #ccc;
+  background-color: #eee;
 `
-
+const PathText = styled.Text`
+  margin-top: 20px;
+  margin-bottom: 20px;
+`
 const Text = styled.Text``
 
 type FolderSelectProps = {
@@ -72,32 +80,31 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   render() {
     return (
       <Root>
-        {Directory.rootDirPath() !== this.state.dir.getPath() && (
-          <TouchableRow key={'navigate-up'} onPress={this.navigateUp}>
-            <Text>Zurück</Text>
-          </TouchableRow>
-        )}
-
-        {this.state.rows.map((path: string) => (
-          <TouchableRow
-            key={`folder-${path}`}
-            onPress={() => this.navigate(path)}
-          >
-            <Text>{this.getFolderName(path)}</Text>
-          </TouchableRow>
-        ))}
-
-        <TouchableRow key={'create-folder'} onPress={this.createFolder}>
-          <Text>Anlegen</Text>
-        </TouchableRow>
-
-        <TouchableRow key={'select-folder'} onPress={() => {
-          this.props.directoryContext.setDir(this.state.dir.getPath(), () => {
-            dismissOverlay(this.props.componentId)
-          })
-        }}>
-          <Text>Auswählen</Text>
-        </TouchableRow>
+        <TopNavigationContainer>
+          {Directory.rootDirPath() !== this.state.dir.getPath() && (
+            <GhostTextButton key={'navigate-up'} onPress={this.navigateUp}>
+              Zurück
+            </GhostTextButton>
+          )}
+          <PathText>{`Ordner: ${this.state.dir.getShortPath()}`}</PathText>
+          <GhostTextButton key={'select-folder'} onPress={() => {
+            this.props.directoryContext.setDir(this.state.dir.getPath(), () => {
+              dismissOverlay(this.props.componentId)
+            })
+          }}>
+              Auswählen
+          </GhostTextButton>
+        </TopNavigationContainer>
+        <List>
+          {this.state.rows.map((path: string) => (
+            <TouchableListRow
+              key={`folder-${path}`}
+              onPress={() => this.navigate(path)}
+            >
+              <Text>{this.getFolderName(path)}</Text>
+            </TouchableListRow>
+          ))}
+        </List>
       </Root>
     )
   }
