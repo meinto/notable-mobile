@@ -4,6 +4,7 @@ import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
 import { File } from '../../filesystem/file'
+import { observer } from 'mobx-react'
 
 const Background = styled.TouchableHighlight`
   position: absolute;
@@ -42,9 +43,13 @@ type CreateFileOverlayProps = {
   componentId: string,
   parentComponentId: string,
   dirPath: string,
+  directoryContext: {
+    updateFileList: Function,
+  },
 }
 
-export class CreateFileOverlay extends React.PureComponent<CreateFileOverlayProps> {
+@observer
+export class CreateFileOverlay extends React.Component<CreateFileOverlayProps> {
 
   state = {
     title: '',
@@ -63,6 +68,7 @@ export class CreateFileOverlay extends React.PureComponent<CreateFileOverlayProp
           push(this.props.parentComponentId, 'note', {
             filePath,
           })
+          this.props.directoryContext.updateFileList()
           dismissOverlay(this.props.componentId)
         })
     }
@@ -78,6 +84,7 @@ export class CreateFileOverlay extends React.PureComponent<CreateFileOverlayProp
     return (
       <Root
         transparent
+        withPadding
         justifyContent={'center'}
       >
         <Background onPress={this.cancel}>
@@ -85,7 +92,7 @@ export class CreateFileOverlay extends React.PureComponent<CreateFileOverlayProp
         </Background>
         <DialogContainer>
           <TitleInput
-            placeholder={'Title of note'}
+            placeholder = { 'Title of note' }
             value={this.state.title}
             onChangeText={this.onChange}
           />

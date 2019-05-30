@@ -1,6 +1,6 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native'
-import { PageWrapper } from '../components/PageWrapper'
+import { PageWrapper } from '../components/Page'
 
 type RootProps = {
   transparent: boolean,

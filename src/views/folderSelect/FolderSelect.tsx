@@ -5,6 +5,7 @@ import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
 import { GhostTextButton } from '../../components/Button'
+import { Text } from '../../components/Text'
 
 const TopNavigationContainer = styled.View`
   padding: 20px;
@@ -16,7 +17,6 @@ const PathText = styled.Text`
   margin-top: 20px;
   margin-bottom: 20px;
 `
-const Text = styled.Text``
 
 type FolderSelectProps = {
   componentId: string,

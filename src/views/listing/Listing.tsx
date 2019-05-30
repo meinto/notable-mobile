@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/native'
 import { observer } from 'mobx-react'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
@@ -12,8 +11,7 @@ import {
 import { File } from '../../filesystem/file'
 import { Directory } from '../../filesystem/directory'
 import { List, TouchableListRow } from '../../components/List'
-
-const Text = styled.Text``
+import { Text } from '../../components/Text'
 
 type ListingProps = {
   componentId: string,

@@ -10,3 +10,7 @@ export const PageWrapper = styled.View<PageWrapperProps>`
   ${props => props.withPadding && 'padding: 20px;'}
   ${props => props.justifyContent && `justify-content: ${props.justifyContent};`}
 `
+
+export const Wrapper = styled.View`
+  padding: 20px;
+`

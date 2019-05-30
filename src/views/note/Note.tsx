@@ -1,9 +1,20 @@
 import React from 'react'
-import { TextInput } from 'react-native'
+import styled from 'styled-components/native'
+import Markdown from 'react-native-markdown-renderer'
 import { File } from '../../filesystem/file'
 import { Navigation } from 'react-native-navigation'
 import { setTopBarIcon } from '../../navigation/actions'
-import Markdown from 'react-native-simple-markdown'
+import { Root } from '../Root'
+
+const Text = styled.Text``
+const TextInput = styled.TextInput`
+  text-align-vertical: top;
+`
+const ScrollView = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    padding: 20,
+  },
+})``
 
 type NoteProps = {
   filePath: string,
@@ -94,15 +105,22 @@ export class Note extends React.PureComponent<NoteProps, NoteState> {
   }
 
   render() {
-    return this.state.editMode ? (
-      <TextInput
-        multiline
-        style={{ flex: 1 }}
-        value={this.state.value}
-        onChangeText={this.updateContent}
-      />
-    ) : (
-      <Markdown>{this.state.value}</Markdown>
+    return (
+      <Root>
+        <Text>{this.file.header.toString()}</Text>
+        {this.state.editMode ? (
+          <TextInput
+            multiline
+            style={{ flex: 1, padding: 20 }}
+            value={this.state.value}
+            onChangeText={this.updateContent}
+          />
+        ) : (
+          <ScrollView>
+            <Markdown>{this.state.value}</Markdown>
+          </ScrollView>
+        )}
+      </Root>
     )
   }
 }

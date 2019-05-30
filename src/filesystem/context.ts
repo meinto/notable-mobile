@@ -49,6 +49,7 @@ class DirectoryContext {
     this.updateFileList()
   }
 
+  @action
   updateFileList = () => {
     this.dir.getFileList()
       .then((fileList) => {
