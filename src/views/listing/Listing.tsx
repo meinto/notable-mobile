@@ -27,14 +27,20 @@ export class Listing extends React.Component<ListingProps> {
 
   static options() {
     return {
+      statusBar: {
+        backgroundColor: '#20272c',
+      },
       topBar: {
         title: {
           text: 'Notizen',
           color: '#efefef',
         },
         background: {
-          color: '#333',
+          color: '#20272c',
         },
+      },
+      layout: {
+        orientation: ['portrait'],
       },
     }
   }
@@ -86,7 +92,7 @@ export class Listing extends React.Component<ListingProps> {
                   filePath: file.getPath(),
                 })
               }}
-            ><Text>{file.getName()}</Text></TouchableListRow>
+            ><Text>{file.header.getTitle()}</Text></TouchableListRow>
             )
           })}
         </List>

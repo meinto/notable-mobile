@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 import { Root } from '../Root'
 import { showOverlay, closeDrawer } from '../../navigation/actions'
 import { TouchableListRow } from '../../components/List'
-import { H1, H2, Text } from '../../components/Text'
+import { BoldHeadline, Subheading, Text } from '../../components/Text'
 import { Wrapper } from '../../components/Page'
 
 const Container = styled.View`
@@ -21,14 +21,14 @@ export class Drawer extends React.PureComponent<DrawerProps> {
       <Root>
         <Container>
           <Wrapper>
-            <H1>Notable Mobile</H1>
-            <H2>(Unofficial)</H2>
+            <BoldHeadline>Notable Mobile</BoldHeadline>
+            <Subheading>(Unofficial)</Subheading>
           </Wrapper>
           <Wrapper>
-            <H2>Notebooks</H2>
+            <Subheading>Notebooks</Subheading>
           </Wrapper>
           <Wrapper>
-            <H2>Optionen</H2>
+            <Subheading>Optionen</Subheading>
           </Wrapper>
           <TouchableListRow
             onPress={() => {

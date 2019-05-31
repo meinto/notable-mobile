@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import { BackHandler } from 'react-native'
 import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
@@ -51,8 +52,22 @@ type CreateFileOverlayProps = {
 @observer
 export class CreateFileOverlay extends React.Component<CreateFileOverlayProps> {
 
+  backHandler: any
   state = {
     title: '',
+  }
+
+  componentDidMount() {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      dismissOverlay(this.props.componentId)
+      return true
+    })
+  }
+
+  componentWillUnmount() {
+    if (this.backHandler) {
+      this.backHandler.remove()
+    }
   }
 
   cancel = () => {

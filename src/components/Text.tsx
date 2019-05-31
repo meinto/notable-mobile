@@ -1,18 +1,39 @@
+import React from 'react'
 import styled from 'styled-components/native'
+import { Text as RNText, Platform } from 'react-native'
+import { material, systemWeights } from 'react-native-typography'
 
-export const H1 = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: bold;
-`
+type TextProps = {
+  children: string,
+}
 
-export const H2 = styled.Text`
-  color: black;
-  font-size: 14px;
-  font-weight: bold;
-`
+const BaseText = ({ style, children }) => (
+  <RNText style={[...style, {
+    color: '#1f1f1f',
+    fontFamily: 'Roboto-Regular',
+  }]}>{children}</RNText>
+)
 
-export const Text = styled.Text`
-  color: black;
-  font-size: 14px;
-`
+export const BoldHeadline = ({ children }: TextProps) => (
+  <BaseText style={[material.headline, systemWeights.bold]}>
+    {children}
+  </BaseText>
+)
+
+export const Headline = ({ children }: TextProps) => (
+  <BaseText style={[material.headline]}>
+    {children}
+  </BaseText>
+)
+
+export const Subheading = ({ children }: TextProps) => (
+  <BaseText style={[material.subheading]}>
+    {children}
+  </BaseText>
+)
+
+export const Text = ({ children }: TextProps) => (
+  <BaseText style={[material.body1]}>
+    {children}
+  </BaseText>
+)

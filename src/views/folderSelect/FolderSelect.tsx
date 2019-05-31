@@ -1,4 +1,5 @@
 import React from 'react'
+import { BackHandler } from 'react-native'
 import styled from 'styled-components/native'
 import { Root } from '../Root'
 import { Directory } from '../../filesystem/directory'
@@ -6,16 +7,18 @@ import { dismissOverlay } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
 import { GhostTextButton } from '../../components/Button'
 import { Text } from '../../components/Text'
+import { Navigation } from 'react-native-navigation'
 
 const TopNavigationContainer = styled.View`
   padding: 20px;
   border-bottom-width: 1px;
   border-color: #ccc;
-  background-color: #eee;
+  background-color: #20272c;
 `
 const PathText = styled.Text`
   margin-top: 20px;
   margin-bottom: 20px;
+  color: white;
 `
 
 type FolderSelectProps = {
@@ -32,6 +35,16 @@ type FolderSelectState = {
 
 export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderSelectState> {
 
+  static options() {
+    return {
+      layout: {
+        orientation: ['portrait'],
+      },
+    }
+  }
+
+  backHandler: any
+
   constructor(props: FolderSelectProps) {
     super(props)
 
@@ -42,7 +55,21 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   }
 
   componentDidMount() {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (Directory.rootDirPath() !== this.state.dir.getPath()) {
+        this.navigateUp()
+      } else {
+        dismissOverlay(this.props.componentId)
+      }
+      return true
+    })
     this.fetchDirPaths()
+  }
+
+  componentWillUnmount() {
+    if (this.backHandler) {
+      this.backHandler.remove()
+    }
   }
 
   navigate = (path: string) => {
@@ -82,16 +109,24 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
       <Root>
         <TopNavigationContainer>
           {Directory.rootDirPath() !== this.state.dir.getPath() && (
-            <GhostTextButton key={'navigate-up'} onPress={this.navigateUp}>
+            <GhostTextButton
+              dark
+              key={'navigate-up'}
+              onPress={this.navigateUp}
+            >
               Zurück
             </GhostTextButton>
           )}
           <PathText>{`Ordner: ${this.state.dir.getShortPath()}`}</PathText>
-          <GhostTextButton key={'select-folder'} onPress={() => {
-            this.props.directoryContext.setDir(this.state.dir.getPath(), () => {
-              dismissOverlay(this.props.componentId)
-            })
-          }}>
+          <GhostTextButton
+            dark
+            key={'select-folder'}
+            onPress={() => {
+              this.props.directoryContext.setDir(this.state.dir.getPath(), () => {
+                dismissOverlay(this.props.componentId)
+              })
+            }}
+          >
               Auswählen
           </GhostTextButton>
         </TopNavigationContainer>
