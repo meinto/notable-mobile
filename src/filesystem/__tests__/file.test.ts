@@ -1,7 +1,12 @@
-import { File, Header } from '../file'
+import { File } from '../File'
+import { Header } from '../../note/Header'
 const fs = require('fs')
+const path = require('path')
 
-const mockFileContent = fs.readFileSync(`${__dirname}/mockFile.md`, 'utf8')
+const mockFileContent = fs.readFileSync(
+  path.join(__dirname, '..', '..', 'note', '__mocks__', 'note.md'),
+  'utf8',
+)
 
 jest.mock('react-native-fs', () => ({
   readFile: jest.fn(() => Promise.resolve(mockFileContent)),
@@ -45,38 +50,4 @@ describe('file classes', () => {
 
   })
 
-  describe('Header', () => {
-    const validateDateFormat = (dateString: string) => {
-      const dateFormat = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}Z/
-      expect(dateFormat.test(dateString)).toBe(true)
-    }
-
-    it('sets title and update modified date', () => {
-      const header = new Header('')
-      const modifiedDate = header.getModified()
-      setTimeout(() => {
-        header.setTitle('mock')
-        expect(header.getTitle()).toEqual('mock')
-        expect(modifiedDate).not.toEqual(header.getModified())
-        validateDateFormat(header.getModified())
-      })
-    })
-
-    it('adds a new tag and update modified date', () => {
-      const header = new Header('')
-      const modifiedDate = header.getModified()
-      setTimeout(() => {
-        header.addTag('custom-tag')
-        expect(header.getTags()).toEqual(['custom-tag'])
-        expect(modifiedDate).not.toEqual(header.getModified())
-        validateDateFormat(header.getModified())
-      })
-    })
-
-    it('sets created and modified date on initialize', () => {
-      const header = new Header('')
-      validateDateFormat(header.getCreated())
-      validateDateFormat(header.getModified())
-    })
-  })
 })

@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 import fs from 'react-native-fs'
-import { File } from './file'
+import { File } from './File'
 
 export class Directory {
 

@@ -8,8 +8,8 @@ import {
   openDrawer,
   setTopBarIcon,
 } from '../../navigation/actions'
-import { File } from '../../filesystem/file'
-import { Directory } from '../../filesystem/directory'
+import { File } from '../../filesystem/File'
+import { Directory } from '../../filesystem/Directory'
 import { List, TouchableListRow } from '../../components/List'
 import { Text } from '../../components/Text'
 

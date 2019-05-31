@@ -4,7 +4,7 @@ import { BackHandler } from 'react-native'
 import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
-import { File } from '../../filesystem/file'
+import { File } from '../../filesystem/File'
 import { observer } from 'mobx-react'
 
 const Background = styled.TouchableHighlight`

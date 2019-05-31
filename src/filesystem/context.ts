@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
 import AsyncStorage from '@react-native-community/async-storage'
-import { Directory } from './directory'
-import { File } from './file'
+import { Directory } from './Directory'
+import { File } from './File'
 
 class DirectoryContext {
 
