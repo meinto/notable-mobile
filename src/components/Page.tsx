@@ -11,6 +11,11 @@ export const PageWrapper = styled.View<PageWrapperProps>`
   ${props => props.justifyContent && `justify-content: ${props.justifyContent};`}
 `
 
-export const Wrapper = styled.View`
+type WrapperProps = {
+  row?: boolean,
+}
+
+export const Wrapper = styled.View<WrapperProps>`
   padding: 20px;
+  flex-direction: ${props => props.row ? 'row' : 'column'};
 `

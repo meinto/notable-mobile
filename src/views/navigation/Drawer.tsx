@@ -11,6 +11,15 @@ const Container = styled.View`
   flex: 1;
 `
 
+const Logo = styled.Image`
+  width: 60px;
+  height: 60px;
+`
+
+const TitleContainer = styled.View`
+  margin-left: 10px;
+`
+
 type DrawerProps = {
   componentId: string,
 }
@@ -20,9 +29,12 @@ export class Drawer extends React.PureComponent<DrawerProps> {
     return (
       <Root>
         <Container>
-          <Wrapper>
-            <BoldHeadline>Notable Mobile</BoldHeadline>
-            <Subheading>(Unofficial)</Subheading>
+          <Wrapper row>
+            <Logo source={require('../../assets/img/notable-unofficial.png')}/>
+            <TitleContainer>
+              <BoldHeadline>Notable Mobile</BoldHeadline>
+              <Subheading>(Unofficial)</Subheading>
+            </TitleContainer>
           </Wrapper>
           <Wrapper>
             <Subheading>Notebooks</Subheading>
