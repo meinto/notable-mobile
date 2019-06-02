@@ -1,13 +1,13 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 import Markdown from 'react-native-markdown-renderer'
 import { material } from 'react-native-typography'
-import { File } from '../../filesystem/File'
+import { getNote, saveNote } from '../../filesystem/file'
+import { Note } from '../../note/Note'
 import { Navigation } from 'react-native-navigation'
 import { setTopBarIcon } from '../../navigation/actions'
 import { Root } from '../Root'
-import { Text } from '../../components/Text'
-import { Platform } from 'react-native'
 
 const TextInput = styled.TextInput`
   text-align-vertical: top;
@@ -28,7 +28,7 @@ type NoteState = {
   editMode: boolean,
 }
 
-export class Note extends React.PureComponent<NoteProps, NoteState> {
+export class NoteDetail extends React.PureComponent<NoteProps, NoteState> {
 
   static options() {
     return {
@@ -50,7 +50,7 @@ export class Note extends React.PureComponent<NoteProps, NoteState> {
     }
   }
 
-  file: File
+  note: Note | null = null
   state: NoteState = {
     value: '',
     editMode: false,
@@ -58,20 +58,20 @@ export class Note extends React.PureComponent<NoteProps, NoteState> {
 
   constructor(props: NoteProps) {
     super(props)
-    this.file = new File(props.filePath)
-    this.file.loadContent()
-      .then((value) => {
-        this.setState({
-          value,
-        })
+    getNote(props.filePath).then((content: string) => {
+      console.log(content)
+      this.note = new Note(content, props.filePath)
+      this.setState({
+        value: this.note.content.toString(),
       })
 
-    Navigation.mergeOptions(this.props.componentId, {
-      topBar: {
-        title: {
-          text: this.file.getName(),
+      Navigation.mergeOptions(this.props.componentId, {
+        topBar: {
+          title: {
+            text: this.note.header.getTitle(),
+          },
         },
-      },
+      })
     })
 
     Navigation.events().bindComponent(this)
@@ -103,13 +103,19 @@ export class Note extends React.PureComponent<NoteProps, NoteState> {
   }
 
   componentWillUnmount() {
-    this.file.saveChanges()
+    if (this.note) {
+      saveNote(this.props.filePath, this.note.toString())
+    }
   }
 
   updateContent = (value: string) => {
     this.setState({
       value,
-    },            () => this.file.updateContent(value))
+    },            () => {
+      if (this.note) {
+        this.note.content.update(value)
+      }
+    })
   }
 
   render() {

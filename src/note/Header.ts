@@ -10,7 +10,7 @@ export class Header {
     created: string,
     modified: string,
   } = {
-    title: '',
+    title: 'Undefined',
     tags: [],
     created: new Date().toISOString(),
     modified: new Date().toISOString(),

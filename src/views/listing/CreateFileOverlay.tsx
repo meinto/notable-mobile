@@ -4,7 +4,7 @@ import { BackHandler } from 'react-native'
 import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
-import { File } from '../../filesystem/File'
+import { createFile } from '../../filesystem/file'
 import { observer } from 'mobx-react'
 
 const Background = styled.TouchableHighlight`
@@ -45,7 +45,7 @@ type CreateFileOverlayProps = {
   parentComponentId: string,
   dirPath: string,
   directoryContext: {
-    updateFileList: Function,
+    updateNoteList: Function,
   },
 }
 
@@ -78,12 +78,12 @@ export class CreateFileOverlay extends React.Component<CreateFileOverlayProps> {
     const title = this.state.title
     if (title.trim().length > 0) {
       const filePath = `${this.props.dirPath}/${title}.md`
-      File.create(filePath)
+      createFile(filePath)
         .then(() => {
           push(this.props.parentComponentId, 'note', {
             filePath,
           })
-          this.props.directoryContext.updateFileList()
+          this.props.directoryContext.updateNoteList()
           dismissOverlay(this.props.componentId)
         })
     }

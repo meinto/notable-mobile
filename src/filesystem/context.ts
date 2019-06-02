@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Directory } from './Directory'
-import { File } from './File'
+import { Note } from '../note/Note'
 
 class DirectoryContext {
 
@@ -9,7 +9,7 @@ class DirectoryContext {
 
   @observable dir: Directory = new Directory('')
   @observable dirPath: string = ''
-  @observable fileList: File[] = []
+  @observable noteList: Note[] = []
   @observable initialized: boolean = false
 
   constructor() {
@@ -46,14 +46,14 @@ class DirectoryContext {
     this.dirPath = dirPath,
     this.dir = new Directory(dirPath),
     this.initialized = true
-    this.updateFileList()
+    this.updateNoteList()
   }
 
   @action
-  updateFileList = () => {
-    this.dir.getFileList()
-      .then((fileList) => {
-        this.fileList = fileList
+  updateNoteList = () => {
+    this.dir.getNoteList()
+      .then((noteList: Note[]) => {
+        this.noteList = noteList
       })
   }
 }

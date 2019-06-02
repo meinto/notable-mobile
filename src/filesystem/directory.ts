@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
 import fs from 'react-native-fs'
-import { File } from './File'
+import { getNote } from './file'
+import { Note } from '../note/Note'
 
 export class Directory {
 
@@ -50,9 +51,17 @@ export class Directory {
       })
   }
 
-  getFileList = (): Promise<File[]> => {
+  getNoteList = (): Promise<Note[]> => {
     return this.getFileListPaths()
-      .then(paths => paths.map(path => new File(path)))
+      .then((paths: string[]) => {
+        return Promise.all(
+          paths.map((path) => {
+            return getNote(path).then((content) => {
+              return new Note(content, path)
+            })
+          }),
+        )
+      })
   }
 
   getFileListPaths = (): Promise<string[]> => {

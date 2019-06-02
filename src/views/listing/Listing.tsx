@@ -8,7 +8,7 @@ import {
   openDrawer,
   setTopBarIcon,
 } from '../../navigation/actions'
-import { File } from '../../filesystem/File'
+import { Note } from '../../note/Note'
 import { Directory } from '../../filesystem/Directory'
 import { List, TouchableListRow } from '../../components/List'
 import { Text } from '../../components/Text'
@@ -17,7 +17,7 @@ type ListingProps = {
   componentId: string,
   directoryContext: {
     dir: Directory,
-    fileList: File[],
+    noteList: Note[],
     initialized: boolean,
   },
 }
@@ -78,21 +78,21 @@ export class Listing extends React.Component<ListingProps> {
   }
 
   renderFileList = () => {
-    const { dir, fileList, initialized } = this.props.directoryContext
+    const { dir, noteList, initialized } = this.props.directoryContext
 
     if (initialized && dir.getPath() !== '') {
       return (
         <List>
-          {fileList.map((file) => {
+          {noteList.map((note, i) => {
             return (
             <TouchableListRow
-              key={file.getPath()}
+              key={`${note.header.getTitle()}-${i}`}
               onPress={() => {
                 push(this.props.componentId, 'note', {
-                  filePath: file.getPath(),
+                  filePath: note.getFilePath(),
                 })
               }}
-            ><Text>{file.header.getTitle()}</Text></TouchableListRow>
+            ><Text>{note.getFileName()}</Text></TouchableListRow>
             )
           })}
         </List>

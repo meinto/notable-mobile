@@ -2,6 +2,10 @@ import { Header } from '../Header'
 const fs = require('fs')
 
 // const mockFileContent = fs.readFileSync(`${__dirname}/../../../note/__mocks__/note.md`, 'utf8')
+// const mockFileContent = fs.readFileSync(
+//   path.join(__dirname, '..', '..', 'note', '__mocks__', 'note.md'),
+//   'utf8',
+// )
 
 describe('Header', () => {
 
