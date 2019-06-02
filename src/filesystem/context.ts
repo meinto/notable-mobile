@@ -2,6 +2,7 @@ import { observable, action } from 'mobx'
 import AsyncStorage from '@react-native-community/async-storage'
 import { Directory } from './Directory'
 import { Note } from '../note/Note'
+import { Notebook } from '../note/Notebook'
 
 class DirectoryContext {
 
@@ -55,6 +56,13 @@ class DirectoryContext {
       .then((noteList: Note[]) => {
         this.noteList = noteList
       })
+  }
+
+  getLinkedRootNotebook = (): Notebook => {
+    const notbookStrings = this.noteList.reduce((prev: string[], note: Note) => {
+      return [...prev, ...note.header.getTags()].filter((n: string) => n)
+    },                                          [])
+    return Notebook.getLinkedRootNotebook(notbookStrings)
   }
 }
 

@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import { observer } from 'mobx-react'
 import { Root } from '../Root'
 import { showOverlay, closeDrawer } from '../../navigation/actions'
-import { TouchableListRow } from '../../components/List'
+import { List, TouchableListRow } from '../../components/List'
 import { BoldHeadline, Subheading, Text } from '../../components/Text'
 import { Wrapper } from '../../components/Page'
+import { NotebookList } from './NotebookList'
+import { Notebook } from '../../note/Notebook'
 
 const Container = styled.View`
   background-color: white;
@@ -22,10 +25,17 @@ const TitleContainer = styled.View`
 
 type DrawerProps = {
   componentId: string,
+  directoryContext: {
+    getLinkedRootNotebook: Function,
+  },
 }
 
-export class Drawer extends React.PureComponent<DrawerProps> {
+@observer
+export class Drawer extends React.Component<DrawerProps> {
+
   render() {
+    const { getLinkedRootNotebook } = this.props.directoryContext
+
     return (
       <Root>
         <Container>
@@ -36,20 +46,25 @@ export class Drawer extends React.PureComponent<DrawerProps> {
               <Subheading>(Unofficial)</Subheading>
             </TitleContainer>
           </Wrapper>
-          <Wrapper>
-            <Subheading>Notebooks</Subheading>
-          </Wrapper>
-          <Wrapper>
-            <Subheading>Optionen</Subheading>
-          </Wrapper>
-          <TouchableListRow
-            onPress={() => {
-              showOverlay('folderSelect')
-              closeDrawer(this.props.componentId)
-            }}
-          >
-            <Text>Notable Ordner auswählen</Text>
-          </TouchableListRow>
+          <List>
+            <Wrapper>
+              <Subheading>Notebooks</Subheading>
+            </Wrapper>
+            {getLinkedRootNotebook().getChildren().map((child: Notebook) => (
+              <NotebookList key={child.getName()} rootNotebook={child}/>
+            ))}
+            <Wrapper>
+              <Subheading>Optionen</Subheading>
+            </Wrapper>
+            <TouchableListRow
+              onPress={() => {
+                showOverlay('folderSelect')
+                closeDrawer(this.props.componentId)
+              }}
+            >
+              <Text>Notable Ordner auswählen</Text>
+            </TouchableListRow>
+          </List>
         </Container>
       </Root>
     )

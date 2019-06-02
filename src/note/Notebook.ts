@@ -3,6 +3,18 @@ export class Notebook {
   path: string
   children: Notebook[] = []
 
+  static getLinkedRootNotebook = (notebookPaths: string[]): Notebook => {
+    const root = new Notebook('Notebooks')
+    notebookPaths.forEach((path) => {
+      const notebook = new Notebook(path)
+      const parents = notebook.getParents()
+      parents.forEach((parentNotebook) => {
+        root.link(parentNotebook)
+      })
+    })
+    return root
+  }
+
   constructor(path: string) {
     this.path = path
   }
@@ -35,8 +47,8 @@ export class Notebook {
   link = (notebook: Notebook) => {
     if (notebook.getParent().getPath() === this.getPath()) {
       const alreadyAdded = this.children
-        .filter((child: Notebook) => child.getPath() !== notebook.getPath())
-        .length === 0
+        .filter((child: Notebook) => child.getPath() === notebook.getPath())
+        .length > 0
       if (!alreadyAdded) {
         this.children.push(notebook)
       }
@@ -46,15 +58,4 @@ export class Notebook {
       })
     }
   }
-}
-
-export const getNotebookList = (notebookPaths: string[]) => {
-  const root = new Notebook('Notebooks')
-  notebookPaths.forEach((path) => {
-    const notebook = new Notebook(path)
-    const parents = notebook.getParents()
-    parents.forEach((parentNotebook) => {
-      root.link(parentNotebook)
-    })
-  })
 }
