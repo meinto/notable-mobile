@@ -10,10 +10,15 @@ const Touchable = styled.TouchableHighlight.attrs({
 
 export const List = styled.ScrollView``
 
-const ListRowContainer = styled.View`
+type ListRowContainerProps = {
+  active: boolean,
+}
+
+const ListRowContainer = styled.View<ListRowContainerProps>`
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  ${props => props.active && 'background-color: #ccc;'}
 `
 
 const ListRowLine = styled.View`
@@ -24,13 +29,14 @@ const ListRowLine = styled.View`
 
 type ListRowProps = {
   children: any,
+  active: boolean,
 }
 
 export class ListRow extends React.PureComponent<ListRowProps> {
   render() {
-    const { children } = this.props
+    const { children, active } = this.props
     return (
-      <ListRowContainer>
+      <ListRowContainer active={active}>
         {children}
         <ListRowLine />
       </ListRowContainer>
@@ -40,15 +46,20 @@ export class ListRow extends React.PureComponent<ListRowProps> {
 
 type TouchableListRowProps = {
   children: any,
+  active: boolean,
   onPress?: ((event: GestureResponderEvent) => void) | undefined,
 }
 
 export class TouchableListRow extends React.PureComponent<TouchableListRowProps> {
+  static defaultProps = {
+    active: false,
+  }
+
   render() {
-    const { children, onPress } = this.props
+    const { children, onPress, active } = this.props
     return (
       <Touchable onPress={onPress}>
-        <ListRow>
+        <ListRow active={active}>
           {children}
         </ListRow>
       </Touchable>

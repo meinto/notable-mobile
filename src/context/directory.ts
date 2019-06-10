@@ -1,6 +1,6 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
 import AsyncStorage from '@react-native-community/async-storage'
-import { Directory } from './Directory'
+import { Directory } from '../filesystem/Directory'
 import { Note } from '../note/Note'
 import { Notebook } from '../note/Notebook'
 
@@ -56,6 +56,13 @@ class DirectoryContext {
       .then((noteList: Note[]) => {
         this.noteList = noteList
       })
+  }
+
+  getNoteList = (activeNotebook: string): Note[] => {
+    if (activeNotebook.length > 0) {
+      return this.noteList.filter(note => note.header.isPartOfNotebook(activeNotebook))
+    }
+    return this.noteList
   }
 
   getLinkedRootNotebook = (): Notebook => {

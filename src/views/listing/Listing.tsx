@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Navigation } from 'react-native-navigation'
 import { Root } from '../Root'
 import {
@@ -17,11 +17,16 @@ type ListingProps = {
   componentId: string,
   directoryContext: {
     dir: Directory,
-    noteList: Note[],
+    getNoteList: Function,
     initialized: boolean,
+  },
+  filterContext: {
+    activeNotebook: string,
   },
 }
 
+@inject('directoryContext')
+@inject('filterContext')
 @observer
 export class Listing extends React.Component<ListingProps> {
 
@@ -78,12 +83,13 @@ export class Listing extends React.Component<ListingProps> {
   }
 
   renderFileList = () => {
-    const { dir, noteList, initialized } = this.props.directoryContext
+    const { dir, getNoteList, initialized } = this.props.directoryContext
+    const { activeNotebook } = this.props.filterContext
 
     if (initialized && dir.getPath() !== '') {
       return (
         <List>
-          {noteList.map((note, i) => {
+          {getNoteList(activeNotebook).map((note: Note, i: number) => {
             return (
             <TouchableListRow
               key={`${note.header.getTitle()}-${i}`}

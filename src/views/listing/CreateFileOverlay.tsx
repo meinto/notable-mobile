@@ -5,7 +5,7 @@ import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
 import { createFile } from '../../filesystem/file'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 const Background = styled.TouchableHighlight`
   position: absolute;
@@ -49,6 +49,7 @@ type CreateFileOverlayProps = {
   },
 }
 
+@inject('directoryContext')
 @observer
 export class CreateFileOverlay extends React.Component<CreateFileOverlayProps> {
 

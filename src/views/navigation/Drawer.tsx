@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Root } from '../Root'
 import { showOverlay, closeDrawer } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
@@ -30,11 +30,14 @@ type DrawerProps = {
   },
 }
 
+@inject('directoryContext')
+@inject('filterContext')
 @observer
 export class Drawer extends React.Component<DrawerProps> {
 
   render() {
     const { getLinkedRootNotebook } = this.props.directoryContext
+    const { activeNotebook, setActiveNotebook } = this.props.filterContext
 
     return (
       <Root>
@@ -47,11 +50,21 @@ export class Drawer extends React.Component<DrawerProps> {
             </TitleContainer>
           </Wrapper>
           <List>
-            <Wrapper>
-              <Subheading>Notebooks</Subheading>
-            </Wrapper>
+            <TouchableListRow
+              onPress={() => {
+                setActiveNotebook('')
+                closeDrawer(this.props.componentId)
+              }}
+              active={activeNotebook === ''}
+            >
+              <Text>Notebooks</Text>
+            </TouchableListRow>
             {getLinkedRootNotebook().getChildren().map((child: Notebook) => (
-              <NotebookList key={child.getName()} rootNotebook={child}/>
+              <NotebookList
+                key={child.getName()}
+                drawerComponentId={this.props.componentId}
+                rootNotebook={child}
+              />
             ))}
             <Wrapper>
               <Subheading>Optionen</Subheading>

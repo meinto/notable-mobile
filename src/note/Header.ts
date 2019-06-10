@@ -46,6 +46,16 @@ export class Header {
   getCreated = (): string => this.fields.created
   getModified = (): string => this.fields.modified
 
+  isPartOfNotebook = (notebook: string) => {
+    let isPart = false
+    this.getTags().forEach((tag) => {
+      if (tag.indexOf(notebook) !== -1) {
+        isPart = true
+      }
+    })
+    return isPart
+  }
+
   setTitle = (title: string) => {
     this.fields.title = title
     this.updateModified()
