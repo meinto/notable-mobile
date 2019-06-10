@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import { BackHandler } from 'react-native'
 import styled from 'styled-components/native'
 import { Root } from '../Root'
@@ -33,6 +34,8 @@ type FolderSelectState = {
   readonly rows: string[],
 }
 
+@inject('directoryContext')
+@observer
 export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderSelectState> {
 
   static options() {
