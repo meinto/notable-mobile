@@ -7,6 +7,11 @@ class Filter {
   setActiveNotebook = (notebook: string) => {
     this.activeNotebook = notebook
   }
+
+  @action
+  resetActiveNotebook = () => {
+    this.activeNotebook = ''
+  }
 }
 
 export const filterContext = new Filter()

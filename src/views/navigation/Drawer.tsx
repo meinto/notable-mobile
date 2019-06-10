@@ -37,7 +37,7 @@ export class Drawer extends React.Component<DrawerProps> {
 
   render() {
     const { getLinkedRootNotebook } = this.props.directoryContext
-    const { activeNotebook, setActiveNotebook } = this.props.filterContext
+    const { activeNotebook, resetActiveNotebook } = this.props.filterContext
 
     return (
       <Root>
@@ -50,22 +50,20 @@ export class Drawer extends React.Component<DrawerProps> {
             </TitleContainer>
           </Wrapper>
           <List>
-            <TouchableListRow
+          <TouchableListRow
               onPress={() => {
-                setActiveNotebook('')
+                resetActiveNotebook()
                 closeDrawer(this.props.componentId)
               }}
               active={activeNotebook === ''}
             >
-              <Text>Notebooks</Text>
+              <Text>Alle Notes</Text>
             </TouchableListRow>
-            {getLinkedRootNotebook().getChildren().map((child: Notebook) => (
-              <NotebookList
-                key={child.getName()}
-                drawerComponentId={this.props.componentId}
-                rootNotebook={child}
-              />
-            ))}
+            <NotebookList
+              key={getLinkedRootNotebook().getName()}
+              drawerComponentId={this.props.componentId}
+              rootNotebook={getLinkedRootNotebook()}
+            />
             <Wrapper>
               <Subheading>Optionen</Subheading>
             </Wrapper>

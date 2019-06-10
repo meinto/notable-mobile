@@ -18,6 +18,7 @@ const ListRowContainer = styled.View<ListRowContainerProps>`
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: -1px;
   ${props => props.active && 'background-color: #ccc;'}
 `
 
