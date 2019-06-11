@@ -15,36 +15,53 @@ type ListRowContainerProps = {
 }
 
 const ListRowContainer = styled.View<ListRowContainerProps>`
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
   margin-bottom: -1px;
   ${props => props.active && 'background-color: #ccc;'}
 `
 
-const ListRowContentContainer = styled.View`
+const ListRowBeforeAfterContainer = styled.View<{beforeIndent: number}>`
   flex-direction: row;
+  ${props => props.beforeIndent && `padding-left: ${props.beforeIndent}px;`}
+`
+
+const ListRowContentContainer = styled.View<{before: any}>`
+  flex-direction: row;
+  padding-top: 20px;
+  ${props => !props.before && 'padding-left: 20px;'}
+  padding-right: 20px;
+  padding-bottom: 20px;
 `
 
 const ListRowLine = styled.View`
   height: 1px;
-  margin-top: 20px;
   background-color: #ccc;
+  margin-right: 20px;
+  margin-left: 20px;
 `
 
 type ListRowProps = {
   children: any,
+  before: any,
+  beforeIndent: number,
   active: boolean,
 }
 
 export class ListRow extends React.PureComponent<ListRowProps> {
   render() {
-    const { children, active } = this.props
+    const {
+      children,
+      active,
+      before,
+      beforeIndent,
+    } = this.props
     return (
       <ListRowContainer active={active}>
-        <ListRowContentContainer>
-          {children}
-        </ListRowContentContainer>
+        <ListRowBeforeAfterContainer beforeIndent={beforeIndent}>
+          {before}
+          <ListRowContentContainer before={before}>
+            {children}
+          </ListRowContentContainer>
+        </ListRowBeforeAfterContainer>
         <ListRowLine />
       </ListRowContainer>
     )
@@ -53,6 +70,8 @@ export class ListRow extends React.PureComponent<ListRowProps> {
 
 type TouchableListRowProps = {
   children: any,
+  before: any,
+  beforeIndent: number,
   active: boolean,
   onPress?: ((event: GestureResponderEvent) => void) | undefined,
 }
@@ -63,10 +82,14 @@ export class TouchableListRow extends React.PureComponent<TouchableListRowProps>
   }
 
   render() {
-    const { children, onPress, active } = this.props
+    const { children, onPress, active, before, beforeIndent } = this.props
     return (
       <Touchable onPress={onPress}>
-        <ListRow active={active}>
+        <ListRow
+          active={active}
+          before={before}
+          beforeIndent={beforeIndent}
+        >
           {children}
         </ListRow>
       </Touchable>

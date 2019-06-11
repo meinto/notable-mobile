@@ -10,15 +10,7 @@ import { Touchable } from '../../components/Button'
 
 const Container = styled.View``
 
-const Indent = styled.View<{level: number}>`
-  flex-direction: row;
-  ${props => props.level && `padding-left: ${40 * (props.level - 1)}px;`}
-`
-
 const IconContainer = styled.View`
-  margin-top: -20px;
-  margin-left: -20px;
-  margin-bottom: -20px;
   padding: 20px;
 `
 
@@ -32,9 +24,13 @@ type NotebookListProps = {
   },
 }
 
+type NotebookListState = {
+  closed: boolean,
+}
+
 @inject('filterContext')
 @observer
-export class NotebookList extends React.Component<NotebookListProps> {
+export class NotebookList extends React.Component<NotebookListProps, NotebookListState> {
 
   static defaultProps = {
     level: 0,
@@ -95,12 +91,10 @@ export class NotebookList extends React.Component<NotebookListProps> {
           }}
           active={activeNotebook === rootNotebook.getPath()}
           key={rootNotebook.getName()}
+          before={this.renderExpansionControl() || this.renderIcon()}
+          beforeIndent={40 * (level - 1)}
         >
-          <Indent level={level}>
-            {this.renderExpansionControl()}
-            {this.renderIcon()}
-            <Text>{rootNotebook.getName()}</Text>
-          </Indent>
+          <Text>{rootNotebook.getName()}</Text>
         </TouchableListRow>
         {!this.state.closed && rootNotebook.getChildren().map((child: Notebook) => (
           <NotebookList
