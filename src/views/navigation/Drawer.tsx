@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { observer, inject } from 'mobx-react'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Root } from '../Root'
 import { showOverlay, closeDrawer } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
@@ -21,6 +22,10 @@ const Logo = styled.Image`
 
 const TitleContainer = styled.View`
   margin-left: 10px;
+`
+
+const IconContainer = styled.View`
+  padding-right: 20px;
 `
 
 type DrawerProps = {
@@ -57,6 +62,9 @@ export class Drawer extends React.Component<DrawerProps> {
               }}
               active={activeNotebook === ''}
             >
+              <IconContainer>
+                <Icon name="description" size={20} color="#000" />
+              </IconContainer>
               <Text>Alle Notes</Text>
             </TouchableListRow>
             <NotebookList

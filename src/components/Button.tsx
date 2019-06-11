@@ -8,9 +8,10 @@ type TouchableProps = {
   dark?: boolean,
 }
 
-const Touchable = styled.TouchableHighlight.attrs<TouchableProps>((props: TouchableProps) => ({
-  underlayColor: props.dark ? '#000' : '#eee',
-}))<TouchableProps>`
+export const Touchable = styled.TouchableHighlight.attrs<TouchableProps>(
+  (props: TouchableProps) => ({
+    underlayColor: props.dark ? '#000' : '#eee',
+  }))<TouchableProps>`
   border-radius: 4px;
 `
 

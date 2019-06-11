@@ -22,6 +22,10 @@ const ListRowContainer = styled.View<ListRowContainerProps>`
   ${props => props.active && 'background-color: #ccc;'}
 `
 
+const ListRowContentContainer = styled.View`
+  flex-direction: row;
+`
+
 const ListRowLine = styled.View`
   height: 1px;
   margin-top: 20px;
@@ -38,7 +42,9 @@ export class ListRow extends React.PureComponent<ListRowProps> {
     const { children, active } = this.props
     return (
       <ListRowContainer active={active}>
-        {children}
+        <ListRowContentContainer>
+          {children}
+        </ListRowContentContainer>
         <ListRowLine />
       </ListRowContainer>
     )

@@ -43,6 +43,7 @@ export class Notebook {
     return notebooks
   }
   getChildren = (): Notebook[] => this.children
+  hasChildren = (): boolean => this.children.length > 0
 
   link = (notebook: Notebook) => {
     if (notebook.getParent().getPath() === this.getPath()) {
