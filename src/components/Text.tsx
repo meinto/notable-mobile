@@ -1,13 +1,13 @@
 import React from 'react'
-import styled from 'styled-components/native'
-import { Text as RNText, Platform } from 'react-native'
+import { Text as RNText } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
 type TextProps = {
   children: string,
+  style?: any,
 }
 
-const BaseText = ({ style, children }) => (
+const BaseText = ({ style, children }: TextProps) => (
   <RNText style={[...style, {
     color: '#1f1f1f',
     fontFamily: 'Roboto-Regular',
