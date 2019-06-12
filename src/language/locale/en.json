@@ -18,5 +18,17 @@
     "titleOfNote": "Title of note",
     "cancel": "Cancel",
     "create": "Create"
+  },
+  "permissions": {
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "read": {
+      "title": "Notable filesystem (read permission)",
+      "message": "Notable needs access to your filesystem to read notes."
+    },
+    "write": {
+      "title": "Notable filesystem (write permission)",
+      "message": "Notable needs access to your filesystem to store notes"
+    }
   }
 }

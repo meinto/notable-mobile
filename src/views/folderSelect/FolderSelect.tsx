@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { BackHandler } from 'react-native'
+import { BackHandler, PermissionsAndroid, Platform } from 'react-native'
 import styled from 'styled-components/native'
 import { Root } from '../Root'
 import { Directory } from '../../filesystem/Directory'
@@ -58,6 +58,8 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   }
 
   componentDidMount() {
+    this.androidReadFilesystemPermission()
+
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       if (Directory.rootDirPath() !== this.state.dir.getPath()) {
         this.navigateUp()
@@ -72,6 +74,49 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
   componentWillUnmount() {
     if (this.backHandler) {
       this.backHandler.remove()
+    }
+  }
+
+  androidReadFilesystemPermission = () => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: i18n.t('permissions.read.title'),
+          message: i18n.t('permissions.read.message'),
+          buttonNegative: i18n.t('permissions.cancel'),
+          buttonPositive: i18n.t('permissions.ok'),
+        },
+      ).then((granted) => {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          this.fetchDirPaths()
+          this.androidWriteFilesystemPermission()
+        } else {
+          BackHandler.exitApp()
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+
+  androidWriteFilesystemPermission = () => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: i18n.t('permissions.write.title'),
+          message: i18n.t('permissions.write.message'),
+          buttonNegative: i18n.t('permissions.cancel'),
+          buttonPositive: i18n.t('permissions.ok'),
+        },
+      ).then((granted) => {
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          BackHandler.exitApp()
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   }
 

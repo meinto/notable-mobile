@@ -18,5 +18,17 @@
     "titleOfNote": "Titel der Notiz",
     "cancel": "Abbrechen",
     "create": "Anlegen"
+  },
+  "permissions": {
+    "cancel": "Abbrechen",
+    "ok": "Ok",
+    "read": {
+      "title": "Notable Dateisystem (Lese-Berechtigung)",
+      "message": "Notable muss Zugriff auf dein Dateisystem haben um Notizen zu lesen."
+    },
+    "write": {
+      "title": "Notable Dateisystem (Schreib-Berechtigung)",
+      "message": "Notable muss Zugriff auf dein Dateisystem haben um Notizen abzuspeichern."
+    }
   }
 }
