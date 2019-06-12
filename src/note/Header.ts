@@ -12,9 +12,10 @@ export class Header {
   } = {
     title: 'Undefined',
     tags: [
-      'Notebooks/test1/bla bla/huiii',
-      'Notebooks/brum/bär/blub',
-      'Notebooks/test1/bla bla/ffff'],
+      'Notebooks/Tutorial/Sub Notebook',
+      'Notebooks/Tutorial/Another one',
+      'Notebooks/Nested/Example',
+      'Notebooks/Nested/Example 2'],
     created: new Date().toISOString(),
     modified: new Date().toISOString(),
   }
