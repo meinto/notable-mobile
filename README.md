@@ -6,7 +6,7 @@ It is in an early state so there are many features which are not supported yet (
 
 **I am happy about every support. :)**
 
-![alt text](./assets/sidebar.png)
+![alt text](./assets/app.jpg)
 
 ## Getting Started
 
