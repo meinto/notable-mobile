@@ -6,6 +6,7 @@ import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'
 import { createFile } from '../../filesystem/file'
 import { observer, inject } from 'mobx-react'
+import { i18n } from '../../language/i18n'
 
 const Background = styled.TouchableHighlight`
   position: absolute;
@@ -108,13 +109,17 @@ export class CreateFileOverlay extends React.Component<CreateFileOverlayProps> {
         </Background>
         <DialogContainer>
           <TitleInput
-            placeholder = { 'Title of note' }
+            placeholder={i18n.t('createNoteOverlay.titleOfNote')}
             value={this.state.title}
             onChangeText={this.onChange}
           />
           <ButtonContainer>
-            <GhostTextButton onPress={this.cancel}>{'Cancel'}</GhostTextButton>
-            <GhostTextButton onPress={this.create}>{'Create'}</GhostTextButton>
+            <GhostTextButton onPress={this.cancel}>
+              {i18n.t('createNoteOverlay.cancel')}
+            </GhostTextButton>
+            <GhostTextButton onPress={this.create}>
+              {i18n.t('createNoteOverlay.create')}
+            </GhostTextButton>
           </ButtonContainer>
         </DialogContainer>
       </Root>

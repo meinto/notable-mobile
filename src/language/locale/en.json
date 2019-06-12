@@ -1,0 +1,22 @@
+{
+  "sidebar": {
+    "allNotes": "All notes",
+    "notebooks": "Notebooks",
+    "options": "Options",
+    "selectFolder": "Select notable folder"
+  },
+  "header": {
+    "notes": "Notes",
+    "note": "Note"
+  },
+  "folderSelect": {
+    "folder": "Folder",
+    "back": "Back",
+    "select": "Select"
+  },
+  "createNoteOverlay": {
+    "titleOfNote": "Title of note",
+    "cancel": "Cancel",
+    "create": "Create"
+  }
+}

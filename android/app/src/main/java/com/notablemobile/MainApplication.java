@@ -3,6 +3,7 @@ package com.notablemobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactcommunity.rnlocalize.RNLocalizePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnfs.RNFSPackage;
@@ -42,7 +43,8 @@ public class MainApplication extends NavigationApplication {
       return Arrays.<ReactPackage>asList(
           new VectorIconsPackage(),
           new AsyncStoragePackage(),
-          new RNFSPackage()
+          new RNFSPackage(),
+          new RNLocalizePackage()
       );
   }
 

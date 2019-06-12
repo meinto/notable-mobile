@@ -1,0 +1,22 @@
+{
+  "sidebar": {
+    "allNotes": "Alle Notizen",
+    "notebooks": "Notebooks",
+    "options": "Optionen",
+    "selectFolder": "Notable Ordner auswählen"
+  },
+  "header": {
+    "notes": "Notizen",
+    "note": "Notiz"
+  },
+  "folderSelect": {
+    "folder": "Ordner",
+    "back": "Zurück",
+    "select": "Auswählen"
+  },
+  "createNoteOverlay": {
+    "titleOfNote": "Titel der Notiz",
+    "cancel": "Abbrechen",
+    "create": "Anlegen"
+  }
+}

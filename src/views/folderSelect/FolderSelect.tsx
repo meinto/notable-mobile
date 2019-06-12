@@ -8,7 +8,7 @@ import { dismissOverlay } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
 import { GhostTextButton } from '../../components/Button'
 import { Text } from '../../components/Text'
-import { Navigation } from 'react-native-navigation'
+import { i18n } from '../../language/i18n'
 
 const TopNavigationContainer = styled.View`
   padding: 20px;
@@ -117,10 +117,12 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
               key={'navigate-up'}
               onPress={this.navigateUp}
             >
-              Zurück
+              {i18n.t('folderSelect.back')}
             </GhostTextButton>
           )}
-          <PathText>{`Ordner: ${this.state.dir.getShortPath()}`}</PathText>
+          <PathText>
+            {`${i18n.t('folderSelect.folder')}: ${this.state.dir.getShortPath()}`}
+          </PathText>
           <GhostTextButton
             dark
             key={'select-folder'}
@@ -130,7 +132,7 @@ export class FolderSelect extends React.PureComponent<FolderSelectProps, FolderS
               })
             }}
           >
-              Auswählen
+              {i18n.t('folderSelect.select')}
           </GhostTextButton>
         </TopNavigationContainer>
         <List>

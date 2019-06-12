@@ -9,6 +9,7 @@ import { BoldHeadline, Subheading, Text } from '../../components/Text'
 import { Wrapper } from '../../components/Page'
 import { NotebookList } from './NotebookList'
 import { Notebook } from '../../note/Notebook'
+import { i18n } from '../../language/i18n'
 
 const Container = styled.View`
   background-color: white;
@@ -73,7 +74,7 @@ export class Drawer extends React.Component<DrawerProps> {
               rootNotebook={getLinkedRootNotebook()}
             />
             <Wrapper>
-              <Subheading>Optionen</Subheading>
+              <Subheading>{i18n.t('sidebar.options')}</Subheading>
             </Wrapper>
             <TouchableListRow
               onPress={() => {
@@ -81,7 +82,7 @@ export class Drawer extends React.Component<DrawerProps> {
                 closeDrawer(this.props.componentId)
               }}
             >
-              <Text>Notable Ordner auswählen</Text>
+              <Text>{i18n.t('sidebar.selectFolder')}</Text>
             </TouchableListRow>
           </List>
         </Container>

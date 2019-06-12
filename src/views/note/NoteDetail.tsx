@@ -8,6 +8,7 @@ import { Note } from '../../note/Note'
 import { Navigation } from 'react-native-navigation'
 import { setTopBarIcon } from '../../navigation/actions'
 import { Root } from '../Root'
+import { i18n } from '../../language/i18n'
 
 const TextInput = styled.TextInput`
   text-align-vertical: top;
@@ -37,7 +38,7 @@ export class NoteDetail extends React.PureComponent<NoteProps, NoteState> {
       },
       topBar: {
         title: {
-          text: 'Notiz',
+          text: i18n.t('header.note'),
           color: '#efefef',
         },
         background: {

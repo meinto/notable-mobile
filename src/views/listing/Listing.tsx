@@ -12,6 +12,7 @@ import { Note } from '../../note/Note'
 import { Directory } from '../../filesystem/Directory'
 import { List, TouchableListRow } from '../../components/List'
 import { Text } from '../../components/Text'
+import { i18n } from '../../language/i18n'
 
 type ListingProps = {
   componentId: string,
@@ -37,7 +38,7 @@ export class Listing extends React.Component<ListingProps> {
       },
       topBar: {
         title: {
-          text: 'Notizen',
+          text: i18n.t('header.notes'),
           color: '#efefef',
         },
         background: {
