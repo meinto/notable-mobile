@@ -1,13 +1,14 @@
 import React from 'react'
-import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 import Markdown from 'react-native-markdown-renderer'
+import { Platform } from 'react-native'
 import { material } from 'react-native-typography'
+
+import { Root } from '../Root'
 import { getNote, saveNote } from '../../filesystem/file'
 import { Note } from '../../note/Note'
 import { Navigation } from 'react-native-navigation'
 import { setTopBarIcon } from '../../navigation/actions'
-import { Root } from '../Root'
 import { i18n } from '../../language/i18n'
 
 const TextInput = styled.TextInput`
@@ -122,7 +123,6 @@ export class NoteDetail extends React.PureComponent<NoteProps, NoteState> {
   render() {
     return (
       <Root>
-        {/* <Text>{this.file.header.toString()}</Text> */}
         {this.state.editMode ? (
           <TextInput
             multiline

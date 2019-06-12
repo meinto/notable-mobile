@@ -1,13 +1,14 @@
 import React from 'react'
-import { observer, inject } from 'mobx-react'
-import { BackHandler, PermissionsAndroid, Platform } from 'react-native'
 import styled from 'styled-components/native'
+import { BackHandler, PermissionsAndroid, Platform } from 'react-native'
+import { observer, inject } from 'mobx-react'
+
 import { Root } from '../Root'
-import { Directory } from '../../filesystem/Directory'
-import { dismissOverlay } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
 import { GhostTextButton } from '../../components/Button'
 import { Text } from '../../components/Text'
+import { Directory } from '../../filesystem/Directory'
+import { dismissOverlay } from '../../navigation/actions'
 import { i18n } from '../../language/i18n'
 
 const TopNavigationContainer = styled.View`

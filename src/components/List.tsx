@@ -79,6 +79,8 @@ type TouchableListRowProps = {
 export class TouchableListRow extends React.PureComponent<TouchableListRowProps> {
   static defaultProps = {
     active: false,
+    before: null,
+    beforeIndent: 0,
   }
 
   render() {

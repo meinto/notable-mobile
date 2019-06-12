@@ -1,7 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Navigation } from 'react-native-navigation'
+
 import { Root } from '../Root'
+import { List, TouchableListRow } from '../../components/List'
+import { Text } from '../../components/Text'
 import {
   push,
   showOverlay,
@@ -10,8 +13,6 @@ import {
 } from '../../navigation/actions'
 import { Note } from '../../note/Note'
 import { Directory } from '../../filesystem/Directory'
-import { List, TouchableListRow } from '../../components/List'
-import { Text } from '../../components/Text'
 import { i18n } from '../../language/i18n'
 
 type ListingProps = {

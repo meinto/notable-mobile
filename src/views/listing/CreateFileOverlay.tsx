@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { BackHandler } from 'react-native'
+
 import { Root } from '../Root'
 import { GhostTextButton } from '../../components/Button'
 import { dismissOverlay, push } from '../../navigation/actions'

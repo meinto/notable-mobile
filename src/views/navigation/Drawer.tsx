@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { observer, inject } from 'mobx-react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { observer, inject } from 'mobx-react'
+
 import { Root } from '../Root'
-import { showOverlay, closeDrawer } from '../../navigation/actions'
 import { List, TouchableListRow } from '../../components/List'
 import { BoldHeadline, Subheading, Text } from '../../components/Text'
 import { Wrapper } from '../../components/Page'
+import { showOverlay, closeDrawer } from '../../navigation/actions'
 import { NotebookList } from './NotebookList'
-import { Notebook } from '../../note/Notebook'
 import { i18n } from '../../language/i18n'
 
 const Container = styled.View`
@@ -33,6 +33,10 @@ type DrawerProps = {
   componentId: string,
   directoryContext: {
     getLinkedRootNotebook: Function,
+  },
+  filterContext: {
+    activeNotebook: string,
+    resetActiveNotebook: Function,
   },
 }
 

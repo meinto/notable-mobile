@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { observer, inject } from 'mobx-react'
-import { closeDrawer } from '../../navigation/actions'
-import { Notebook } from '../../note/Notebook'
+
 import { TouchableListRow } from '../../components/List'
 import { Text } from '../../components/Text'
 import { Touchable } from '../../components/Button'
+import { closeDrawer } from '../../navigation/actions'
+import { Notebook } from '../../note/Notebook'
 
 const Container = styled.View``
 
