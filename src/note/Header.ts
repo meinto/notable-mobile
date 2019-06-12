@@ -11,11 +11,7 @@ export class Header {
     modified: string,
   } = {
     title: 'Undefined',
-    tags: [
-      'Notebooks/Tutorial/Sub Notebook',
-      'Notebooks/Tutorial/Another one',
-      'Notebooks/Nested/Example',
-      'Notebooks/Nested/Example 2'],
+    tags: [],
     created: new Date().toISOString(),
     modified: new Date().toISOString(),
   }
