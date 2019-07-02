@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import AsyncStorage from '@react-native-community/async-storage'
-import { Directory } from '../filesystem/Directory'
+import { Directory } from '../filesystem/directory'
 import { Note } from '../note/Note'
 import { Notebook } from '../note/Notebook'
 
