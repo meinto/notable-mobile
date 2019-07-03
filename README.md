@@ -1,4 +1,4 @@
-# Notable Mobile
+# Notable Mobile (Unofficial)
 
 **This is no official app.** It is inspired by [notable](https://github.com/notable/notable), a markdown editor for PC and Mac.
 
