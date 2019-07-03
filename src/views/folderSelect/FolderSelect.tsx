@@ -7,7 +7,7 @@ import { Root } from '../Root'
 import { List, TouchableListRow } from '../../components/List'
 import { GhostTextButton } from '../../components/Button'
 import { Text } from '../../components/Text'
-import { Directory } from '../../filesystem/Directory'
+import { Directory } from '../../filesystem/directory'
 import { dismissOverlay } from '../../navigation/actions'
 import { i18n } from '../../language/i18n'
 
